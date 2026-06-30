@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MS Home Services Admin Dashboard</title>
+<title>MS Interiors Admin Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
@@ -328,7 +328,7 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
-    <div class="login-logo">MS<span>Home Services</span></div>
+    <div class="login-logo">MS<span> Interiors</span></div>
     <h2>Admin Dashboard</h2>
     <p>Sign in with your admin credentials</p>
     <div class="login-hint"><i class="fas fa-info-circle"></i> Demo credentials — Username: <strong>admin</strong> &nbsp;|&nbsp; Password: <strong>msinteriors123</strong></div>
@@ -342,7 +342,7 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
 <!-- SIDEBAR -->
 <div id="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-text">MS<span>Home Services</span></div>
+    <div class="logo-text">MS<span> Interiors</span></div>
     <div class="logo-sub">Admin Panel v1.0</div>
   </div>
 
@@ -367,6 +367,10 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
   <div class="nav-item" onclick="showPage('products')">
     <i class="fas fa-box"></i><span>Products</span>
     <div class="nav-badge" id="productBadge">0</div>
+  </div>
+  <div class="nav-item" onclick="showPage('homeservices')">
+    <i class="fas fa-tools"></i><span>Home Services</span>
+    <div class="nav-badge" id="homeServicesBadge">0</div>
   </div>
   <div class="nav-item" onclick="showPage('shop')">
     <i class="fas fa-store"></i><span>Shop Products</span>
@@ -586,6 +590,31 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
       </div>
     </div>
 
+    <!-- ===== HOME SERVICES PAGE ===== -->
+    <div id="page-homeservices" style="display:none">
+      <div class="section-card">
+        <div class="section-card-header">
+          <i class="fas fa-tools" style="color:var(--blue)"></i>
+          <h3>Home Services</h3>
+          <div class="count-pill" id="homeServicesCountPill">0</div>
+          <div class="ml">
+            <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="homeServicesSearch" placeholder="Search..." oninput="filterTable('homeservices')"></div>
+            <button class="topbar-btn primary" onclick="openHomeServiceModal()"><i class="fas fa-plus"></i> Add Service</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Icon</th><th>Name</th><th>Description</th><th>Price</th><th>Order</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="homeServicesTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
     <!-- ===== SHOP PRODUCTS PAGE ===== -->
     <div id="page-shop" style="display:none">
       <div class="section-card">
@@ -647,6 +676,54 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
       <button class="modal-x" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-box-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- HOME SERVICE ADD/EDIT MODAL -->
+<div class="modal-overlay" id="homeServiceModal">
+  <div class="modal-box">
+    <div class="modal-box-header">
+      <h3 id="homeServiceModalTitle">Add Service</h3>
+      <button class="modal-x" onclick="closeHomeServiceModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-box-body">
+      <input type="hidden" id="hsId">
+      <div class="form-row form-row-2">
+        <div>
+          <label class="form-label">Icon (emoji)</label>
+          <input type="text" id="hsIcon" class="form-input" placeholder="⚡" maxlength="4">
+        </div>
+        <div>
+          <label class="form-label">Service Name</label>
+          <input type="text" id="hsName" class="form-input" placeholder="e.g. Electrician">
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Description</label>
+        <input type="text" id="hsDesc" class="form-input" placeholder="e.g. Wiring, panels, faults">
+      </div>
+      <div class="form-row form-row-2">
+        <div>
+          <label class="form-label">Price (₹)</label>
+          <input type="number" id="hsPrice" class="form-input" placeholder="349">
+        </div>
+        <div>
+          <label class="form-label">Display Order</label>
+          <input type="number" id="hsOrder" class="form-input" placeholder="0">
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Status</label>
+        <select id="hsStatus" class="form-input">
+          <option value="active">Active (visible on site)</option>
+          <option value="inactive">Inactive (hidden)</option>
+        </select>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:10px;">
+        <button class="topbar-btn primary" style="flex:1;justify-content:center;padding:12px" onclick="saveHomeService()"><i class="fas fa-save"></i> Save Service</button>
+        <button class="topbar-btn" style="padding:12px 18px" onclick="closeHomeServiceModal()">Cancel</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -722,10 +799,10 @@ const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 const SB_HEADERS = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
 
 // Table name mapping
-const TABLE_MAP = { bookings: 'bookings', franchise: 'franchise', contacts: 'contacts', products: 'products', logins: 'logins', shop: 'shop_products' };
+const TABLE_MAP = { bookings: 'bookings', franchise: 'franchise', contacts: 'contacts', products: 'products', logins: 'logins', shop: 'shop_products', homeservices: 'home_services' };
 
 // In-memory cache
-let cache = { bookings: [], franchise: [], contacts: [], products: [], logins: [], shop: [] };
+let cache = { bookings: [], franchise: [], contacts: [], products: [], logins: [], shop: [], homeservices: [] };
 
 async function sbFetch(table, method='GET', body=null, query='') {
   const res = await fetch(`${SB_URL}/${table}${query}`, {
@@ -737,13 +814,14 @@ async function sbFetch(table, method='GET', body=null, query='') {
 
 async function loadAll() {
   try {
-    const [bookings, franchise, contacts, products, logins, shop] = await Promise.all([
+    const [bookings, franchise, contacts, products, logins, shop, homeservices] = await Promise.all([
       sbFetch('bookings', 'GET', null, '?order=created_at.desc'),
       sbFetch('franchise', 'GET', null, '?order=created_at.desc'),
       sbFetch('contacts', 'GET', null, '?order=created_at.desc'),
       sbFetch('products', 'GET', null, '?order=created_at.desc'),
       sbFetch('logins', 'GET', null, '?order=created_at.desc'),
       sbFetch('shop_products', 'GET', null, '?order=created_at.desc').catch(() => []),
+      sbFetch('home_services', 'GET', null, '?order=sort_order.asc').catch(() => []),
     ]);
     cache.bookings  = bookings  || [];
     cache.franchise = franchise || [];
@@ -751,6 +829,7 @@ async function loadAll() {
     cache.products  = products  || [];
     cache.logins    = logins    || [];
     cache.shop      = shop      || [];
+    cache.homeservices = homeservices || [];
   } catch(e) { showToast('⚠️ Could not load data: ' + e.message); }
 }
 
@@ -799,7 +878,7 @@ async function clearAllData() {
   if (!confirm('Clear ALL data from all tables? This cannot be undone.')) return;
   try {
     await Promise.all(Object.values(TABLE_MAP).map(t => sbFetch(t, 'DELETE', null, '?id=neq.null').catch(()=>null)));
-    cache = { bookings: [], franchise: [], contacts: [], products: [], logins: [], shop: [] };
+    cache = { bookings: [], franchise: [], contacts: [], products: [], logins: [], shop: [], homeservices: [] };
     renderPage(currentPage);
     updateBadges();
     showToast('All data cleared.');
@@ -819,12 +898,13 @@ function showPage(page) {
     franchise: ['Franchise Applications','All franchise enquiries'],
     contacts:  ['Contact Messages','Customer messages & queries'],
     products:  ['Product Listings','Seller product submissions'],
+    homeservices: ['Home Services','Services shown on the booking page'],
     shop:      ['Shop Products','Catalog shown on the Products page'],
     logins:    ['User Registrations','Registered & logged-in users'],
   };
   document.getElementById('topbarTitle').textContent = titles[page][0];
   document.getElementById('topbarSub').textContent = titles[page][1];
-  document.querySelectorAll('.nav-item')[['dashboard','bookings','franchise','contacts','products','shop','logins'].indexOf(page)]?.classList.add('active');
+  document.querySelectorAll('.nav-item')[['dashboard','bookings','franchise','contacts','products','homeservices','shop','logins'].indexOf(page)]?.classList.add('active');
   currentPage = page;
   renderPage(page);
 }
@@ -842,6 +922,7 @@ function updateBadges() {
   document.getElementById('contactBadge').textContent   = cache.contacts.length;
   document.getElementById('productBadge').textContent   = cache.products.length;
   document.getElementById('shopBadge').textContent      = cache.shop.length;
+  document.getElementById('homeServicesBadge').textContent = cache.homeservices.length;
   document.getElementById('loginBadge').textContent     = cache.logins.length;
 }
 
@@ -853,6 +934,7 @@ function renderPage(page) {
   if (page === 'contacts')   renderContacts(cache.contacts);
   if (page === 'products')   renderProducts(cache.products);
   if (page === 'shop')       renderShop(cache.shop);
+  if (page === 'homeservices') renderHomeServices(cache.homeservices);
   if (page === 'logins')     renderLogins(cache.logins);
 }
 
@@ -1044,6 +1126,99 @@ function renderProducts(data) {
   </tr>`).join('');
 }
 
+// ===== HOME SERVICES TABLE =====
+function renderHomeServices(data) {
+  document.getElementById('homeServicesCountPill').textContent = data.length;
+  const tb = document.getElementById('homeServicesTable');
+  if (!data.length) { tb.innerHTML = `<tr><td colspan="7">${emptyState('tools','No home services yet. Click "Add Service" to create one.')}</td></tr>`; return; }
+  tb.innerHTML = data.map(s => `<tr>
+    <td style="font-size:20px;text-align:center">${esc(s.icon)||'—'}</td>
+    <td class="name-cell">${esc(s.name)}</td>
+    <td>${esc(s.description)||'—'}</td>
+    <td class="amount-cell">₹${Number(s.price||0).toLocaleString('en-IN')}</td>
+    <td class="date-cell">${s.sort_order ?? 0}</td>
+    <td>
+      <select class="status-select" onchange="updateStatus('homeservices','${s.id}',this.value)">
+        ${['active','inactive'].map(st => `<option value="${st}"${s.status===st?' selected':''}>${st==='active'?'Active':'Inactive'}</option>`).join('')}
+      </select>
+    </td>
+    <td>
+      <div class="actions-cell">
+        <button class="action-btn view" onclick='editHomeService(${JSON.stringify(s.id)})'>Edit</button>
+        <button class="action-btn delete" onclick="deleteItem('homeservices','${s.id}')">Delete</button>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+
+function openHomeServiceModal() {
+  document.getElementById('homeServiceModalTitle').textContent = 'Add Service';
+  document.getElementById('hsId').value = '';
+  document.getElementById('hsIcon').value = '';
+  document.getElementById('hsName').value = '';
+  document.getElementById('hsDesc').value = '';
+  document.getElementById('hsPrice').value = '';
+  document.getElementById('hsOrder').value = cache.homeservices.length;
+  document.getElementById('hsStatus').value = 'active';
+  document.getElementById('homeServiceModal').classList.add('active');
+}
+
+function editHomeService(id) {
+  const s = cache.homeservices.find(x => x.id === id);
+  if (!s) return;
+  document.getElementById('homeServiceModalTitle').textContent = 'Edit Service';
+  document.getElementById('hsId').value = s.id;
+  document.getElementById('hsIcon').value = s.icon || '';
+  document.getElementById('hsName').value = s.name || '';
+  document.getElementById('hsDesc').value = s.description || '';
+  document.getElementById('hsPrice').value = s.price || '';
+  document.getElementById('hsOrder').value = s.sort_order ?? 0;
+  document.getElementById('hsStatus').value = s.status || 'active';
+  document.getElementById('homeServiceModal').classList.add('active');
+}
+
+function closeHomeServiceModal() { document.getElementById('homeServiceModal').classList.remove('active'); }
+document.getElementById('homeServiceModal').addEventListener('click', e => { if(e.target===document.getElementById('homeServiceModal')) closeHomeServiceModal(); });
+
+async function saveHomeService() {
+  const id = document.getElementById('hsId').value;
+  const icon = document.getElementById('hsIcon').value.trim();
+  const name = document.getElementById('hsName').value.trim();
+  const description = document.getElementById('hsDesc').value.trim();
+  const price = parseFloat(document.getElementById('hsPrice').value) || 0;
+  const sort_order = parseInt(document.getElementById('hsOrder').value) || 0;
+  const status = document.getElementById('hsStatus').value;
+
+  if (!name) { showToast('⚠️ Service name is required.'); return; }
+  if (!price) { showToast('⚠️ Price is required.'); return; }
+
+  const payload = { icon, name, description, price, sort_order, status };
+
+  try {
+    if (id) {
+      await sbFetch('home_services', 'PATCH', payload, `?id=eq.${id}`);
+      const item = cache.homeservices.find(x => x.id === id);
+      if (item) Object.assign(item, payload);
+      showToast('✅ Service updated.');
+    } else {
+      payload.id = genId('#SVC');
+      const result = await sbFetch('home_services', 'POST', payload);
+      if (result && result[0]) cache.homeservices.push(result[0]);
+      showToast('✅ Service added.');
+    }
+    cache.homeservices.sort((a,b) => (a.sort_order||0) - (b.sort_order||0));
+    closeHomeServiceModal();
+    renderPage(currentPage);
+    updateBadges();
+  } catch(e) {
+    if (e.message.toLowerCase().includes('does not exist') || e.message.toLowerCase().includes('relation')) {
+      showToast('⚠️ home_services table not set up yet. See setup SQL.');
+    } else {
+      showToast('❌ Save failed: ' + e.message);
+    }
+  }
+}
+
 // ===== SHOP PRODUCTS TABLE =====
 function renderShop(data) {
   document.getElementById('shopCountPill').textContent = data.length;
@@ -1167,7 +1342,7 @@ function renderLogins(data) {
 
 // ===== FILTER / SEARCH =====
 function filterTable(type) {
-  const searchIdMap = { bookings:'book', contacts:'contact', franchise:'franchise', products:'product', logins:'login', shop:'shop' };
+  const searchIdMap = { bookings:'book', contacts:'contact', franchise:'franchise', products:'product', logins:'login', shop:'shop', homeservices:'homeServices' };
   const searchEl = document.getElementById(searchIdMap[type] + 'Search');
   const filterEl = document.getElementById(type.replace('bookings','book') + 'Filter');
   const q = searchEl ? searchEl.value.toLowerCase() : '';
@@ -1180,6 +1355,7 @@ function filterTable(type) {
   if (type === 'contacts')  renderContacts(data);
   if (type === 'products')  renderProducts(data);
   if (type === 'shop')      renderShop(data);
+  if (type === 'homeservices') renderHomeServices(data);
   if (type === 'logins')    renderLogins(data);
 }
 
@@ -1249,6 +1425,7 @@ function exportCSV(type) {
 
 // ===== HELPERS =====
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function genId(prefix) { return prefix + Math.random().toString(36).substring(2,9).toUpperCase(); }
 function fmtDate(iso) {
   if (!iso) return '—';
   try { return new Date(iso).toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); } catch(e) { return iso; }
