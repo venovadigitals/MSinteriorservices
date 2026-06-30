@@ -46,7 +46,7 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
 }
 .login-box {
   background: var(--white); border-radius: 20px; padding: 48px 40px;
-  width: 400px; box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+  width: min(400px, 92vw); box-shadow: 0 24px 80px rgba(0,0,0,0.3);
 }
 .login-logo { font-family: 'Poppins',sans-serif; font-size: 26px; font-weight: 800; color: var(--blue); margin-bottom: 6px; }
 .login-logo span { color: var(--orange); }
@@ -320,7 +320,74 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
   .sidebar-logo .logo-text, .sidebar-logo .logo-sub, .nav-item span, .sidebar-section-label, .admin-name, .admin-role { display: none; }
   .nav-badge { position: absolute; top: 4px; right: 4px; font-size: 9px; padding: 1px 4px; }
   .sidebar-footer .logout-btn { margin: 0; }
+  .dash-grid-2 { grid-template-columns: 1fr !important; }
 }
+
+@media (max-width: 600px) {
+  /* LOGIN */
+  .login-box { padding: 32px 22px; border-radius: 16px; }
+
+  /* SIDEBAR - icon rail stays, just trim it down a touch */
+  #sidebar { width: 50px; }
+  .sidebar-logo { padding: 16px 0 14px; text-align: center; }
+  .nav-item { padding: 12px 0; justify-content: center; }
+  .nav-item i { width: auto; }
+
+  /* TOPBAR */
+  .topbar {
+    height: auto; min-height: 56px; padding: 10px 12px;
+    flex-wrap: wrap; row-gap: 8px;
+  }
+  .topbar-title { font-size: 15px; }
+  .topbar-sub { font-size: 11px; }
+  .topbar-right { margin-left: 0; width: 100%; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+  .topbar-btn { padding: 6px 10px; font-size: 12px; }
+
+  /* CONTENT */
+  #content { padding: 14px; }
+
+  /* STAT CARDS */
+  .stats-row { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .stat-card { padding: 14px; gap: 10px; }
+  .stat-icon { width: 36px; height: 36px; font-size: 16px; border-radius: 9px; }
+  .stat-num { font-size: 20px; }
+  .stat-label { font-size: 11px; }
+
+  /* SECTION CARD HEADER */
+  .section-card { margin-bottom: 16px; border-radius: 10px; }
+  .section-card-header {
+    flex-wrap: wrap; padding: 14px;
+  }
+  .section-card-header .ml {
+    margin-left: 0; width: 100%; flex-wrap: wrap; gap: 8px;
+  }
+  .search-bar { flex: 1 1 100%; }
+  .search-bar input { width: 100%; }
+  .filter-select, .section-card-header .topbar-btn { flex: 1 1 auto; }
+
+  /* TABLE - allow horizontal scroll, just tighten it up */
+  .data-table { font-size: 12px; }
+  .data-table th { padding: 8px 10px; font-size: 10px; }
+  .data-table td { padding: 10px; }
+  .actions-cell { gap: 5px; }
+  .action-btn { padding: 5px 8px; font-size: 11px; }
+
+  /* MODAL */
+  .modal-overlay { padding: 12px; }
+  .modal-box { border-radius: 12px; max-height: 94vh; }
+  .modal-box-header { padding: 14px 16px; }
+  .modal-box-body { padding: 16px; }
+  .detail-row { flex-direction: column; gap: 4px; }
+  .detail-label { min-width: 0; }
+
+  /* FORM */
+  .form-row-2 { grid-template-columns: 1fr; gap: 0; }
+
+  /* TOAST */
+  .toast { left: 12px; right: 12px; transform: translateY(60px); white-space: normal; text-align: center; }
+  .toast.show { transform: translateY(0); }
+}
+
 </style>
 </head>
 <body>
@@ -415,7 +482,7 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
     <div id="page-dashboard">
       <div class="stats-row" id="statsRow"></div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+      <div class="dash-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
         <!-- Recent Bookings -->
         <div class="section-card">
           <div class="section-card-header">
@@ -443,7 +510,7 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div class="dash-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
         <!-- Franchise Leads -->
         <div class="section-card">
           <div class="section-card-header">
