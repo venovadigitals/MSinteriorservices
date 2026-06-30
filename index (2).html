@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS Home Services & Interiors | Premium Home Services On Demand</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #0a2b8f;
+    --blue-dark: #061d63;
+    --blue-light: #e8edfb;
+    --orange: #c9911f;
+    --orange-light: #fff4e0;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --dark: #0f172a;
+    --dark2: #1e293b;
+    --gray: #64748b;
+    --gray-light: #f1f5f9;
+    --gray-border: #e2e8f0;
+    --white: #ffffff;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.13);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--dark); background: var(--white); overflow-x: hidden; }
+  a { text-decoration: none; color: inherit; }
+  button { cursor: pointer; font-family: inherit; }
+  input, select, textarea { font-family: inherit; }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-border);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .nav-top {
+    background: var(--blue);
+    padding: 6px 0;
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.3px;
+  }
+  .nav-top span { margin: 0 16px; }
+  .nav-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 76px;
+  }
+  .logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--blue);
+    letter-spacing: -0.5px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+  }
+  .logo-img {
+    height: 58px;
+    width: auto;
+    max-width: 270px;
+    object-fit: contain;
+    display: block;
+  }
+  .logo span { color: var(--orange); }
+  .city-selector {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--gray-border);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray);
+    cursor: pointer;
+    background: var(--gray-light);
+    flex-shrink: 0;
+  }
+  .city-selector i { color: var(--blue); font-size: 12px; }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    margin-left: auto;
+  }
+  .nav-links a {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray);
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); background: var(--blue-light); }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .btn-sell {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1.5px solid var(--orange);
+    color: var(--orange);
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--white);
+    transition: all 0.2s;
+  }
+  .btn-sell:hover { background: var(--orange); color: var(--white); }
+  .btn-login {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.2s;
+  }
+  .btn-login:hover { background: var(--blue-dark); }
+  .cart-btn {
+    position: relative;
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    border: 1.5px solid var(--gray-border);
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    color: var(--dark2);
+    transition: all 0.2s;
+  }
+  .cart-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .cart-badge {
+    position: absolute;
+    top: -6px; right: -6px;
+    background: var(--orange);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ===== HERO ===== */
+  #hero {
+    background: linear-gradient(135deg, #0f172a 0%, #102c6e 60%, #0a2b8f 100%);
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 24px;
+    backdrop-filter: blur(4px);
+  }
+  .hero-badge i { color: #fbbf24; }
+  #hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #hero h1 span { color: #fbbf24; }
+  #hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    max-width: 560px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+  }
+  .hero-stat .lbl {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 2px;
+  }
+  .hero-guarantee {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(22,163,74,0.2);
+    border: 1px solid rgba(22,163,74,0.4);
+    color: #86efac;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 24px;
+  }
+
+  /* ===== SECTION WRAPPER ===== */
+  .section { padding: 80px 24px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 48px; }
+  .section-eyebrow {
+    display: inline-block;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .section-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .section-header p { font-size: 16px; color: var(--gray); max-width: 500px; margin: 0 auto; }
+
+  /* ===== SERVICES GRID ===== */
+  #services-list { background: var(--gray-light); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .service-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border: 1.5px solid transparent;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--blue);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+  }
+  .service-card:hover { border-color: var(--blue); box-shadow: var(--shadow); transform: translateY(-4px); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card.selected { border-color: var(--blue); background: var(--blue-light); box-shadow: var(--shadow); }
+  .service-icon {
+    width: 64px; height: 64px;
+    border-radius: 16px;
+    background: var(--blue-light);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 28px;
+    color: var(--blue);
+    transition: all 0.25s;
+  }
+  .service-card:hover .service-icon, .service-card.selected .service-icon {
+    background: var(--blue);
+    color: var(--white);
+  }
+  .service-card h3 { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .service-card p { font-size: 12px; color: var(--gray); }
+  .service-price { font-size: 15px; font-weight: 700; color: var(--blue); margin-top: 10px; }
+  .select-tick {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--white);
+    font-size: 11px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .service-card.selected .select-tick { display: flex; }
+  .services-actions {
+    text-align: center;
+    margin-top: 36px;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(10,43,143,0.3); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--white);
+    color: var(--blue);
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--blue-light); }
+
+  /* ===== ORDERS SECTION ===== */
+  #orders { background: var(--white); }
+  .orders-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+  .order-card {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--gray-border);
+  }
+  .order-id { font-size: 12px; color: var(--gray); }
+  .order-id strong { color: var(--dark); font-size: 13px; display: block; margin-bottom: 2px; }
+  .status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .status-approved { background: var(--green-light); color: var(--green); }
+  .order-services { font-size: 13px; color: var(--gray); margin-bottom: 10px; }
+  .order-services strong { color: var(--dark); }
+  .order-total { font-size: 16px; font-weight: 700; color: var(--blue); }
+  .status-pending { background: #fef3c7; color: #b45309; }
+  .status-completed { background: var(--green-light); color: var(--green); }
+  .status-cancelled { background: #fee2e2; color: var(--red); }
+  .promo-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #061d63 0%, #0a2b8f 100%);
+    border-radius: var(--radius);
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--white);
+  }
+  .promo-card .promo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.15);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .promo-card h3 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+  .promo-card p { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+
+  /* ===== FRANCHISE SECTION ===== */
+  #franchise { background: var(--dark); }
+  #franchise .section-eyebrow { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+  #franchise .section-header h2 { color: var(--white); }
+  #franchise .section-header p { color: rgba(255,255,255,0.6); }
+  .franchise-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .franchise-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+  .franchise-stat {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+  }
+  .franchise-stat .num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #fbbf24;
+    display: block;
+  }
+  .franchise-stat .lbl { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+  .franchise-benefits { display: flex; flex-direction: column; gap: 16px; }
+  .benefit-item { display: flex; gap: 14px; align-items: flex-start; }
+  .benefit-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(10,43,143,0.25);
+    border: 1px solid rgba(10,43,143,0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: #aebdf0;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .benefit-text h4 { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .benefit-text p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+  .franchise-form-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+  .franchise-form-box h3 { font-size: 18px; font-weight: 600; color: var(--white); margin-bottom: 24px; }
+
+  /* ===== FORM STYLES ===== */
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--gray); margin-bottom: 6px; }
+  .form-dark label { color: rgba(255,255,255,0.6); }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 8px;
+    border: 1.5px solid var(--gray-border);
+    font-size: 14px;
+    background: var(--white);
+    color: var(--dark);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--blue); }
+  .form-dark input, .form-dark select, .form-dark textarea {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.15);
+    color: var(--white);
+  }
+  .form-dark input::placeholder { color: rgba(255,255,255,0.35); }
+  .form-dark input:focus, .form-dark select:focus { border-color: rgba(10,43,143,0.7); }
+  .form-dark select { color: rgba(255,255,255,0.7); }
+  .form-dark select option { background: var(--dark2); color: var(--white); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* ===== CONTACT SECTION ===== */
+  #contact { background: var(--gray-light); }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 24px; }
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+  .contact-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: var(--blue);
+    color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .contact-item h4 { font-size: 13px; font-weight: 600; color: var(--gray); margin-bottom: 4px; }
+  .contact-item p { font-size: 15px; font-weight: 600; color: var(--dark); }
+  .contact-form-box {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .contact-form-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    padding: 24px;
+    text-align: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+  }
+
+  /* ===== MODALS ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--white);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--gray-border);
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 1;
+  }
+  .modal-header h3 { font-size: 18px; font-weight: 700; }
+  .modal-close {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-border);
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { background: var(--gray-light); color: var(--dark); }
+  .modal-body { padding: 24px; }
+  .modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--gray-border);
+    background: var(--gray-light);
+    border-radius: 0 0 16px 16px;
+  }
+  .cart-summary { background: var(--gray-light); border-radius: 10px; padding: 16px; margin-bottom: 20px; }
+  .cart-row { display: flex; justify-content: space-between; font-size: 14px; padding: 4px 0; color: var(--gray); }
+  .cart-row.total { font-weight: 700; color: var(--dark); font-size: 16px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gray-border); }
+  .selected-service-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--blue-light);
+    color: var(--blue);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 4px;
+  }
+
+  /* ===== CHATBOT ===== */
+  .chatbot-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 4px 20px rgba(10,43,143,0.4);
+    z-index: 1500;
+    transition: all 0.2s;
+  }
+  .chatbot-btn:hover { transform: scale(1.08); }
+  .chatbot-window {
+    position: fixed;
+    bottom: 96px;
+    right: 28px;
+    width: 320px;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    z-index: 1500;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--gray-border);
+  }
+  .chatbot-window.open { display: flex; }
+  .chatbot-header {
+    background: var(--blue);
+    color: var(--white);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .chatbot-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .chatbot-header-info h4 { font-size: 14px; font-weight: 600; }
+  .chatbot-header-info p { font-size: 11px; color: rgba(255,255,255,0.75); }
+  .chatbot-close-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .chatbot-messages {
+    padding: 16px;
+    height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .chat-msg { max-width: 85%; }
+  .chat-msg.bot { align-self: flex-start; }
+  .chat-msg.user { align-self: flex-end; }
+  .chat-bubble {
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .bot .chat-bubble { background: var(--gray-light); color: var(--dark); border-bottom-left-radius: 4px; }
+  .user .chat-bubble { background: var(--blue); color: var(--white); border-bottom-right-radius: 4px; }
+  .chatbot-quick {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 12px;
+    flex-wrap: wrap;
+  }
+  .quick-btn {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1.5px solid var(--blue);
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .quick-btn:hover { background: var(--blue); color: var(--white); }
+  .chatbot-input {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--gray-border);
+  }
+  .chatbot-input input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1.5px solid var(--gray-border);
+    font-size: 13px;
+    outline: none;
+  }
+  .chatbot-input input:focus { border-color: var(--blue); }
+  .chatbot-send {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--dark);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 3000;
+    transition: transform 0.3s;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ===== CITY DROPDOWN ===== */
+  .city-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    min-width: 180px;
+    z-index: 500;
+    display: none;
+    overflow: hidden;
+  }
+  .city-dropdown.open { display: block; }
+  .city-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .city-item:hover { background: var(--blue-light); color: var(--blue); }
+  .city-wrap { position: relative; }
+
+  /* ===== BRANCH INFO BAR ===== */
+  .branch-info-bar {
+    background: var(--blue-light);
+    border-bottom: 1px solid var(--gray-border);
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .branch-info-bar i { color: var(--orange); }
+  .branch-info-bar span:first-of-type { font-weight: 500; color: var(--gray); }
+  .branch-info-divider { color: var(--gray-border); font-weight: 400; }
+  .branch-phone-link { color: var(--blue-dark); font-weight: 600; }
+  .branch-phone-link:hover { text-decoration: underline; }
+  @media (max-width: 480px) {
+    .branch-info-bar { flex-wrap: wrap; font-size: 12px; padding: 8px 12px; row-gap: 4px; }
+  }
+
+  /* ===== MOBILE HAMBURGER ===== */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: auto;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--dark);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+  .mobile-nav-overlay.open { display: block; }
+  .mobile-nav-drawer {
+    position: fixed;
+    top: 0; left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--white);
+    z-index: 1001;
+    transition: left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .mobile-nav-drawer.open { left: 0; }
+  .mobile-nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--gray-border);
+  }
+  .mobile-nav-close {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-border);
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    color: var(--gray);
+    cursor: pointer;
+  }
+  .mobile-nav-links {
+    padding: 12px 0;
+    list-style: none;
+  }
+  .mobile-nav-links li a {
+    display: block;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--dark);
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .mobile-nav-links li a:hover {
+    color: var(--blue);
+    background: var(--blue-light);
+    border-left-color: var(--blue);
+  }
+  .mobile-nav-actions {
+    padding: 16px 20px;
+    border-top: 1px solid var(--gray-border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+  }
+  .mobile-nav-actions .btn-sell,
+  .mobile-nav-actions .btn-login {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 768px) {
+    /* NAV */
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .nav-actions .btn-sell,
+    .nav-actions .btn-login { display: none; }
+    .nav-main { padding: 0 16px; gap: 12px; }
+
+    /* NAV TOP BAR */
+    .nav-top span { display: none; }
+    .nav-top span:first-child { display: inline; font-size: 11px; }
+
+    /* HERO */
+    #hero { padding: 48px 16px 40px; }
+    #hero h1 { font-size: clamp(24px, 7vw, 36px); }
+    #hero p { font-size: 14px; margin-bottom: 24px; }
+    .hero-stats { gap: 16px; }
+    .hero-stat .num { font-size: 22px; }
+    .hero-stat .lbl { font-size: 11px; }
+    .hero-guarantee { font-size: 12px; padding: 6px 14px; }
+
+    /* SECTIONS */
+    .section { padding: 48px 16px; }
+    .section-header { margin-bottom: 32px; }
+    .section-header h2 { font-size: clamp(20px, 5vw, 28px); }
+
+    /* SERVICES */
+    .services-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .service-card { padding: 20px 12px; }
+    .service-icon { width: 52px; height: 52px; font-size: 22px; }
+    .service-card h3 { font-size: 13px; }
+    .service-card p { font-size: 11px; }
+
+    /* ORDERS */
+    .orders-grid { grid-template-columns: 1fr; }
+
+    /* FRANCHISE */
+    .franchise-layout { grid-template-columns: 1fr; gap: 32px; }
+    .franchise-stats { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .franchise-stat { padding: 14px 10px; }
+    .franchise-stat .num { font-size: 20px; }
+    .franchise-form-box { padding: 20px; }
+
+    /* CONTACT */
+    .contact-layout { grid-template-columns: 1fr; gap: 32px; }
+    .contact-form-box { padding: 20px; }
+
+    /* FORM */
+    .form-row { grid-template-columns: 1fr; }
+
+    /* MODALS */
+    .modal-overlay { padding: 12px; align-items: flex-end; }
+    .modal {
+      border-radius: 16px 16px 0 0;
+      max-height: 92vh;
+      width: 100%;
+    }
+    .modal-body { padding: 16px; }
+    .modal-header { padding: 16px; }
+
+    /* CHATBOT */
+    .chatbot-btn { bottom: 16px; right: 16px; width: 50px; height: 50px; font-size: 20px; }
+    .chatbot-window {
+      bottom: 78px; right: 8px; left: 8px;
+      width: auto;
+      border-radius: 14px;
+    }
+
+    /* TOAST */
+    .toast { white-space: normal; text-align: center; width: calc(100% - 32px); }
+
+    /* BUTTONS */
+    .btn-primary, .btn-secondary { padding: 12px 20px; font-size: 14px; }
+  }
+
+  @media (max-width: 420px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .franchise-stats { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 12px; }
+    .hero-badge { font-size: 11px; padding: 5px 12px; }
+  }
+</style>
+<!-- ===== CLERK AUTH SDK ===== -->
+<!-- Replace YOUR_CLERK_PUBLISHABLE_KEY with the key from clerk.com → API Keys -->
+<script
+  async
+  crossorigin="anonymous"
+  data-clerk-publishable-key="pk_test_d29ya2FibGUtc3RpbmdyYXktMjMuY2xlcmsuYWNjb3VudHMuZGV2JA"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+  type="text/javascript"
+></script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-top">
+    <span>⚡ 60-Min Response Guarantee</span>
+    <span>✅ 30-Day Workmanship Warranty</span>
+    <span>🔒 Background-Checked Professionals</span>
+  </div>
+  <div class="nav-main">
+    <!-- LOGO: replace the src below with your logo image URL (e.g. a Cloudinary link), and update the href if needed -->
+    <a href="#hero" class="logo"><img src="https://res.cloudinary.com/drfl8crbx/image/upload/v1782590591/Gold_House_Building_Real_Estate_Logo_1_o29hqq.png" alt="MS Home Services & Interiors Logo" class="logo-img"></a>
+    <div class="city-wrap">
+      <div class="city-selector" id="citySelector">
+        <i class="fas fa-map-marker-alt"></i>
+        <span id="selectedCity">Guntur</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="city-dropdown" id="cityDropdown">
+        <div class="city-item">Chilakaluripeta</div>
+        <div class="city-item">Guntur</div>
+        <div class="city-item">Narsaraopet</div>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#services-list">Services</a></li>
+      <li><a href="#franchise">Franchise</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-login" id="accountBtn" onclick="openModal('loginModal')">Account / Login</button>
+      <button class="cart-btn" onclick="requireLogin('bookingModal')" id="cartBtn">
+        <i class="fas fa-shopping-cart"></i>
+        <div class="cart-badge" id="cartCount">0</div>
+      </button>
+      <button class="hamburger" id="hamburgerBtn" onclick="openMobileNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- BRANCH INFO BAR: shows manager + phone for the currently selected location -->
+<div class="branch-info-bar" id="branchInfoBar">
+  <i class="fas fa-user-tie"></i>
+  <span>Branch Manager:</span>
+  <span id="branchManagerName">—</span>
+  <span class="branch-info-divider">•</span>
+  <i class="fas fa-phone-alt"></i>
+  <a href="tel:" id="branchManagerPhone" class="branch-phone-link">—</a>
+</div>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-nav-header">
+    <!-- LOGO: keep this in sync with the one above -->
+    <a href="#hero" class="logo" onclick="closeMobileNav()"><img src="https://res.cloudinary.com/drfl8crbx/image/upload/v1782590591/Gold_House_Building_Real_Estate_Logo_1_o29hqq.png" alt="MS Home Services & Interiors Logo" class="logo-img"></a>
+    <button class="mobile-nav-close" onclick="closeMobileNav()"><i class="fas fa-times"></i></button>
+  </div>
+  <ul class="mobile-nav-links">
+    <li><a href="#hero" onclick="closeMobileNav()"><i class="fas fa-home" style="width:18px;margin-right:8px;color:var(--blue)"></i>Home</a></li>
+    <li><a href="#services-list" onclick="closeMobileNav()"><i class="fas fa-wrench" style="width:18px;margin-right:8px;color:var(--blue)"></i>Services</a></li>
+    <li><a href="#franchise" onclick="closeMobileNav()"><i class="fas fa-handshake" style="width:18px;margin-right:8px;color:var(--blue)"></i>Franchise</a></li>
+    <li><a href="#contact" onclick="closeMobileNav()"><i class="fas fa-envelope" style="width:18px;margin-right:8px;color:var(--blue)"></i>Contact</a></li>
+  </ul>
+  <div class="mobile-nav-actions">
+    <button class="btn-login" style="width:100%;text-align:center;padding:12px;" onclick="closeMobileNav();openModal('loginModal')">Account / Login</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-badge"><i class="fas fa-star"></i> Fast • Certified • Guaranteed</div>
+  <h1>Your Trusted Platform<br>for <span>Home Services</span></h1>
+  <p>Instantly book top-rated electricians, plumbers, masons, painters, and cleaners. Fully vetted professionals at your doorstep within 60 minutes.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <button class="btn-primary" onclick="document.getElementById('services-list').scrollIntoView({behavior:'smooth'})">
+      <i class="fas fa-bolt"></i> Book a Service
+    </button>
+    <button class="btn-secondary" style="border-color:rgba(255,255,255,0.4);color:white;background:rgba(255,255,255,0.1);" onclick="openModal('franchiseModal')">
+      <i class="fas fa-handshake"></i> Franchise Enquiry
+    </button>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">50+</div><div class="lbl">Cities Active</div></div>
+    <div class="hero-stat"><div class="num">10K+</div><div class="lbl">Jobs Completed</div></div>
+    <div class="hero-stat"><div class="num">4.9★</div><div class="lbl">Avg Rating</div></div>
+    <div class="hero-stat"><div class="num">60 Min</div><div class="lbl">Response Time</div></div>
+  </div>
+  <div style="margin-top:32px;">
+    <div class="hero-guarantee"><i class="fas fa-shield-alt"></i> 30-Day Workmanship Warranty Included</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services-list" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Our Services</div>
+      <h2>Select Service Packages</h2>
+      <p>Select multiple home solutions and schedule them together in a single booking queue.</p>
+    </div>
+    <div class="services-grid" id="servicesGrid"></div>
+    <div class="services-actions">
+      <button class="btn-primary" id="proceedBtn" onclick="guardedOpenBookingModal()" style="display:none;">
+        <i class="fas fa-calendar-check"></i> Schedule Booking (<span id="selectedCount">0</span> selected)
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- MY ORDERS -->
+<section id="orders" class="section" style="padding-top:0;display:none;">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Track</div>
+      <h2>My Orders</h2>
+      <p>View and manage your booked services in real time.</p>
+    </div>
+    <div class="orders-grid" id="ordersGrid"></div>
+  </div>
+</section>
+
+<!-- FRANCHISE -->
+<section id="franchise" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Business Opportunity</div>
+      <h2>Own an MS Home Services & Interiors Franchise</h2>
+      <p>Join India's fastest-growing home service aggregator network. Leverage our advanced tech, vetted supply chains, and 24/7 support desks.</p>
+    </div>
+    <div class="franchise-layout">
+      <div>
+        <div class="franchise-stats">
+          <div class="franchise-stat"><span class="num">50+</span><div class="lbl">Active Cities</div></div>
+          <div class="franchise-stat"><span class="num">30%</span><div class="lbl">MoM Growth</div></div>
+          <div class="franchise-stat"><span class="num">₹2.5L+</span><div class="lbl">Avg Monthly ROI</div></div>
+        </div>
+        <div class="franchise-benefits">
+          <div class="benefit-item">
+            <div class="benefit-icon"><i class="fas fa-laptop-code"></i></div>
+            <div class="benefit-text">
+              <h4>Tech Infrastructure</h4>
+              <p>Centralized CRM, automated dispatcher system, and multi-channel booking platform.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon"><i class="fas fa-users"></i></div>
+            <div class="benefit-text">
+              <h4>Provider Sourcing</h4>
+              <p>Easy access to background-checked electricians, plumbers, and masons in your city.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon"><i class="fas fa-bullhorn"></i></div>
+            <div class="benefit-text">
+              <h4>Marketing & Ads</h4>
+              <p>Hyperlocal Google & Meta campaigns fully managed by our HQ team.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon"><i class="fas fa-map-pin"></i></div>
+            <div class="benefit-text">
+              <h4>Exclusive Territory</h4>
+              <p>Complete monopoly over service bookings in your designated area pin codes.</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" style="margin-top:28px;" onclick="openModal('franchiseModal')">
+          <i class="fas fa-handshake"></i> Apply for Franchise
+        </button>
+      </div>
+      <div class="franchise-form-box form-dark">
+        <h3>Franchise Application Form</h3>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:20px;">Submit your details to receive our franchise kit and schedule a call with our expansion directors.</p>
+        <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your full name"></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX"></div>
+        <div class="form-group"><label>Target Territory / City</label><input type="text" placeholder="City or district"></div>
+        <div class="form-group">
+          <label>Available Capital Investment</label>
+          <select>
+            <option value="">Choose Budget Range...</option>
+            <option>₹3 Lakhs - ₹5 Lakhs</option>
+            <option>₹5 Lakhs - ₹10 Lakhs</option>
+            <option>₹10 Lakhs+</option>
+          </select>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitFranchiseInline()">
+          Submit Franchise Application
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow">Contact Us</div>
+      <h2>Let's Get in Touch!</h2>
+      <p>Have an emergency booking, custom project requests, or corporate contracts? We operate 24 hours a day!</p>
+    </div>
+    <div class="contact-layout">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+          <div>
+            <h4>Call Booking Desk</h4>
+            <p>+91 9515128962</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <h4>Email Support</h4>
+            <p>shahinameerja111@gmail.com</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <h4>HQ Address</h4>
+            <p>Beside of Municipality Office, Chilakaluripeta<br>Palnadu District, Andhra Pradesh, India - 522616</p>
+          </div>
+        </div>
+        <div style="background:var(--blue);border-radius:12px;padding:20px;color:white;margin-top:8px;">
+          <div style="font-size:13px;opacity:0.75;margin-bottom:4px;">24/7 Emergency Line</div>
+          <div style="font-size:20px;font-weight:700;">+91 9515128962</div>
+          <div style="font-size:13px;opacity:0.7;margin-top:6px;">Available round the clock for urgent repairs</div>
+        </div>
+      </div>
+      <div class="contact-form-box">
+        <h3>Leave a Message</h3>
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="Enter your name"></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-group">
+          <label>Message / Service Queries</label>
+          <textarea rows="5" placeholder="Describe your service request or query..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitContact()">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 MS Home Services & Interiors Platform. Developed By <a href="https://www.instagram.com/venova.digitals/" target="_blank" rel="noopener noreferrer" style="color:#e11d48;font-weight:600;text-decoration:none;">Venova Digitals</a>.</p>
+</footer>
+
+<!-- ===== BOOKING MODAL ===== -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3><i class="fas fa-calendar-check" style="color:var(--blue);margin-right:8px;"></i>Schedule Booking</h3>
+      <button class="modal-close" onclick="closeModal('bookingModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div id="selectedServiceTags" style="margin-bottom:16px;"></div>
+      <div class="cart-summary" id="cartSummary">
+        <div class="cart-row"><span>Cart Subtotal</span><span id="subtotal">₹0</span></div>
+        <div class="cart-row"><span>GST/Service Tax (18%)</span><span id="gst">₹0</span></div>
+        <div class="cart-row total"><span>Estimated Total</span><span id="estTotal">₹0</span></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="Full Name"></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Select Date</label><input type="date"></div>
+        <div class="form-group">
+          <label>Preferred Time Slot</label>
+          <select>
+            <option value="">Choose Time Slot...</option>
+            <option>Morning (09:00 AM - 12:00 PM)</option>
+            <option>Afternoon (12:00 PM - 03:00 PM)</option>
+            <option>Late Afternoon (03:00 PM - 06:00 PM)</option>
+            <option>Evening Slot (06:00 PM - 09:00 PM)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Full Service Address</label><textarea rows="3" placeholder="Door no, street, area, city..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" style="width:100%;justify-content:center;" onclick="confirmBooking()">
+        <i class="fas fa-bolt"></i> Confirm Booking
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== AUTH MODAL ===== -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <h3 id="authModalTitle">Welcome Back</h3>
+      <button class="modal-close" onclick="closeModal('loginModal');authReset()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="padding:28px;">
+
+      <!-- ── PANEL 1: LOGIN ── -->
+      <div id="authPanel-login">
+        <p style="font-size:13px;color:var(--gray);margin-bottom:20px;">Sign in to view and manage your booked services.</p>
+        <div class="form-group"><label>Email Address</label><input id="li-email" type="email" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Password</label>
+          <div style="position:relative;">
+            <input id="li-pass" type="password" placeholder="••••••••" style="padding-right:40px;">
+            <span onclick="togglePwd('li-pass',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--gray);font-size:13px;"><i class="fas fa-eye"></i></span>
+          </div>
+        </div>
+        <div style="text-align:right;margin-bottom:16px;">
+          <a href="#" onclick="authShow('forgot')" style="font-size:12px;color:var(--blue);font-weight:500;">Forgot password?</a>
+        </div>
+        <button class="btn-primary" id="li-btn" style="width:100%;justify-content:center;" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+        <div id="li-err" style="display:none;margin-top:10px;font-size:13px;color:var(--red);background:#fef2f2;padding:10px 12px;border-radius:8px;"></div>
+        <p style="text-align:center;margin-top:18px;font-size:13px;color:var(--gray);">
+          Don't have an account? <a href="#" onclick="authShow('register')" style="color:var(--blue);font-weight:600;">Register</a>
+        </p>
+      </div>
+
+      <!-- ── PANEL 2: REGISTER ── -->
+      <div id="authPanel-register" style="display:none;">
+        <p style="font-size:13px;color:var(--gray);margin-bottom:20px;">Create your account. We'll send an OTP to verify your email.</p>
+        <div class="form-group"><label>Full Name</label><input id="reg-name" type="text" placeholder="Your full name"></div>
+        <div class="form-group"><label>Email Address</label><input id="reg-email" type="email" placeholder="your@email.com"></div>
+        <div class="form-group"><label>Mobile Number</label><input id="reg-phone" type="tel" placeholder="+91 XXXXX XXXXX"></div>
+        <div class="form-group"><label>Password</label>
+          <div style="position:relative;">
+            <input id="reg-pass" type="password" placeholder="Min 6 characters" style="padding-right:40px;">
+            <span onclick="togglePwd('reg-pass',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--gray);font-size:13px;"><i class="fas fa-eye"></i></span>
+          </div>
+        </div>
+        <div class="form-group"><label>Confirm Password</label>
+          <div style="position:relative;">
+            <input id="reg-pass2" type="password" placeholder="Re-enter password" style="padding-right:40px;">
+            <span onclick="togglePwd('reg-pass2',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--gray);font-size:13px;"><i class="fas fa-eye"></i></span>
+          </div>
+        </div>
+        <button class="btn-primary" id="reg-btn" style="width:100%;justify-content:center;" onclick="doRegister()"><i class="fas fa-user-plus"></i> Create Account & Send OTP</button>
+        <div id="clerk-captcha"></div>
+        <div id="reg-err" style="display:none;margin-top:10px;font-size:13px;color:var(--red);background:#fef2f2;padding:10px 12px;border-radius:8px;"></div>
+        <p style="text-align:center;margin-top:18px;font-size:13px;color:var(--gray);">
+          Already have an account? <a href="#" onclick="authShow('login')" style="color:var(--blue);font-weight:600;">Sign In</a>
+        </p>
+      </div>
+
+      <!-- ── PANEL 3: OTP VERIFY ── -->
+      <div id="authPanel-otp" style="display:none;">
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style="width:56px;height:56px;background:var(--blue-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:24px;color:var(--blue);"><i class="fas fa-envelope-open-text"></i></div>
+          <p style="font-size:13px;color:var(--gray);">We sent a 6-digit OTP to<br><strong id="otp-email-display" style="color:var(--dark);"></strong></p>
+        </div>
+        <div class="form-group">
+          <label style="text-align:center;display:block;">Enter OTP</label>
+          <input id="otp-code" type="text" maxlength="6" placeholder="_ _ _ _ _ _"
+            style="text-align:center;font-size:22px;font-weight:700;letter-spacing:8px;padding:14px;">
+        </div>
+        <button class="btn-primary" id="otp-btn" style="width:100%;justify-content:center;" onclick="doVerifyOtp()"><i class="fas fa-check-circle"></i> Verify & Continue</button>
+        <div id="otp-err" style="display:none;margin-top:10px;font-size:13px;color:var(--red);background:#fef2f2;padding:10px 12px;border-radius:8px;"></div>
+        <p style="text-align:center;margin-top:14px;font-size:12px;color:var(--gray);">
+          Didn't receive it? <a href="#" onclick="resendOtp()" style="color:var(--blue);font-weight:500;">Resend OTP</a>
+        </p>
+      </div>
+
+      <!-- ── PANEL 4: FORGOT PASSWORD ── -->
+      <div id="authPanel-forgot" style="display:none;">
+        <div style="text-align:center;margin-bottom:20px;">
+          <div style="width:56px;height:56px;background:#fff4e0;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;color:var(--orange);"><i class="fas fa-key"></i></div>
+          <p style="font-size:13px;color:var(--gray);">Enter your registered email. We'll send a password reset link instantly.</p>
+        </div>
+        <div class="form-group"><label>Email Address</label><input id="fp-email" type="email" placeholder="your@email.com"></div>
+        <button class="btn-primary" id="fp-btn" style="width:100%;justify-content:center;" onclick="doForgotPassword()"><i class="fas fa-paper-plane"></i> Send Reset Link</button>
+        <div id="fp-err" style="display:none;margin-top:10px;font-size:13px;color:var(--red);background:#fef2f2;padding:10px 12px;border-radius:8px;"></div>
+        <div id="fp-success" style="display:none;margin-top:10px;font-size:13px;color:var(--green);background:var(--green-light);padding:12px;border-radius:8px;text-align:center;"></div>
+        <p style="text-align:center;margin-top:14px;font-size:13px;color:var(--gray);">
+          <a href="#" onclick="authShow('login')" style="color:var(--blue);font-weight:500;">← Back to Sign In</a>
+        </p>
+      </div>
+
+      <!-- ── PANEL 5: SUCCESS ── -->
+      <div id="authPanel-success" style="display:none;text-align:center;padding:16px 0;">
+        <div style="width:64px;height:64px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;color:var(--green);"><i class="fas fa-check"></i></div>
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;" id="success-title">Account Created!</h3>
+        <p style="font-size:13px;color:var(--gray);" id="success-msg">You're now signed in to MS Home Services & Interiors.</p>
+        <button class="btn-primary" style="margin-top:20px;justify-content:center;" onclick="closeModal('loginModal');authReset()">Continue to MS Home Services & Interiors</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== SELL PRODUCT MODAL ===== -->
+<div class="modal-overlay" id="sellModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>List a Product for Sale</h3>
+      <button class="modal-close" onclick="closeModal('sellModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--gray);margin-bottom:24px;">Fill out the specifications below to list your hardware tools or building materials in our active store catalog.</p>
+      <div class="form-group"><label>Product Title</label><input type="text" placeholder="e.g. Heavy Duty Drill Machine"></div>
+      <div class="form-group"><label>Product Description</label><textarea rows="3" placeholder="Describe the product..."></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>Price (₹)</label><input type="number" placeholder="0"></div>
+        <div class="form-group"><label>Delivery / Pickup Duration</label><input type="text" placeholder="e.g. 2-3 days"></div>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;margin-top:8px;" onclick="submitProduct()">
+        Submit Listing for Sale
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FRANCHISE MODAL ===== -->
+<div class="modal-overlay" id="franchiseModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Franchise Application Form</h3>
+      <button class="modal-close" onclick="closeModal('franchiseModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--gray);margin-bottom:24px;">Submit your details to receive our franchise kit and schedule a call with our expansion directors.</p>
+      <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your full name"></div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX"></div>
+      <div class="form-group"><label>Target Territory / City</label><input type="text" placeholder="City or district"></div>
+      <div class="form-group">
+        <label>Available Capital Investment</label>
+        <select>
+          <option value="">Choose Budget Range...</option>
+          <option>₹3 Lakhs - ₹5 Lakhs</option>
+          <option>₹5 Lakhs - ₹10 Lakhs</option>
+          <option>₹10 Lakhs+</option>
+        </select>
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitFranchiseModal()">
+        Submit Franchise Application
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CHATBOT -->
+<button class="chatbot-btn" id="chatbotBtn" onclick="toggleChatbot()">
+  <i class="fas fa-comment-dots"></i>
+</button>
+<div class="chatbot-window" id="chatbotWindow">
+  <div class="chatbot-header">
+    <div class="chatbot-avatar"><i class="fas fa-robot"></i></div>
+    <div class="chatbot-header-info">
+      <h4>MS Home Services & Interiors Assistant</h4>
+      <p>Online | Typical reply in secs</p>
+    </div>
+    <button class="chatbot-close-btn" onclick="toggleChatbot()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="chatbot-messages" id="chatMessages">
+    <div class="chat-msg bot"><div class="chat-bubble">👋 Hi! I'm the MS Home Services & Interiors Assistant. How can I help you today?</div></div>
+  </div>
+  <div class="chatbot-quick">
+    <button class="quick-btn" onclick="sendQuick('Prices?')">Prices?</button>
+    <button class="quick-btn" onclick="sendQuick('Service Time?')">Service Time?</button>
+    <button class="quick-btn" onclick="sendQuick('Warranty?')">Warranty?</button>
+  </div>
+  <div class="chatbot-input">
+    <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chatbot-send" onclick="sendChat()"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== SUPABASE CONFIG =====
+const SB_URL = 'https://lonyxwzivoetbqibpjhj.supabase.co/rest/v1';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxvbnl4d3ppdm9ldGJxaWJwamhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNjMxNzksImV4cCI6MjA5NjkzOTE3OX0.1QlFEUJ7fwcooTjTZqbJoEWei3kApHhj8WmwLwWUW_4';
+const SB_HEADERS = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+
+async function sbInsert(table, data) {
+  const res = await fetch(`${SB_URL}/${table}`, {
+    method: 'POST', headers: SB_HEADERS, body: JSON.stringify(data)
+  });
+  if (!res.ok) { const e = await res.text(); throw new Error(e); }
+  return res.json();
+}
+
+async function sbSelect(table, query) {
+  const res = await fetch(`${SB_URL}/${table}?${query}`, {
+    method: 'GET', headers: SB_HEADERS
+  });
+  if (!res.ok) { const e = await res.text(); throw new Error(e); }
+  return res.json();
+}
+
+function getCurrentUser() {
+  try {
+    const raw = sessionStorage.getItem('ef_user');
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function genId(prefix) {
+  return prefix + Math.random().toString(36).substring(2,9).toUpperCase();
+}
+
+// ===== SERVICES =====
+const services = [
+  { icon: '⚡', name: 'Electrician', desc: 'Wiring, panels, faults', price: 349 },
+  { icon: '🔧', name: 'Plumber', desc: 'Pipes, leaks, fixtures', price: 299 },
+  { icon: '🧱', name: 'Mason', desc: 'Walls, tiles, repairs', price: 499 },
+  { icon: '🪵', name: 'Carpenter', desc: 'Furniture, doors, wood', price: 399 },
+  { icon: '🎨', name: 'Painter', desc: 'Interior & exterior', price: 599 },
+  { icon: '🌀', name: 'Fan Installation', desc: 'Ceiling & exhaust fans', price: 199 },
+  { icon: '🧹', name: 'Deep Cleaning', desc: 'Full home sanitize', price: 799 },
+  { icon: '❄️', name: 'AC Service', desc: 'Repair & maintenance', price: 449 },
+  { icon: '🚿', name: 'Bathroom Fixing', desc: 'Taps, showers, drains', price: 349 },
+  { icon: '💡', name: 'Switchboard Repair', desc: 'Upgrade & rewire', price: 249 },
+  { icon: '🔒', name: 'Lock & Security', desc: 'Locks, grills, gates', price: 299 },
+  { icon: '🏠', name: 'Waterproofing', desc: 'Roof & wall sealing', price: 899 },
+];
+
+let selected = new Set();
+
+function renderServices() {
+  const grid = document.getElementById('servicesGrid');
+  grid.innerHTML = services.map((s, i) => `
+    <div class="service-card" id="scard-${i}" onclick="toggleService(${i})">
+      <div class="select-tick"><i class="fas fa-check"></i></div>
+      <div class="service-icon">${s.icon}</div>
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <div class="service-price">₹${s.price}</div>
+    </div>
+  `).join('');
+}
+
+function toggleService(i) {
+  const card = document.getElementById(`scard-${i}`);
+  if (selected.has(i)) { selected.delete(i); card.classList.remove('selected'); }
+  else { selected.add(i); card.classList.add('selected'); }
+  updateCart();
+}
+
+function updateCart() {
+  const count = selected.size;
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('selectedCount').textContent = count;
+  const proceedBtn = document.getElementById('proceedBtn');
+  proceedBtn.style.display = count > 0 ? 'inline-flex' : 'none';
+  updateCartSummary();
+}
+
+function updateCartSummary() {
+  let sub = 0;
+  selected.forEach(i => sub += services[i].price);
+  const gst = Math.round(sub * 0.18);
+  const total = sub + gst;
+  document.getElementById('subtotal').textContent = '₹' + sub;
+  document.getElementById('gst').textContent = '₹' + gst;
+  document.getElementById('estTotal').textContent = '₹' + total;
+  const tags = document.getElementById('selectedServiceTags');
+  if (selected.size === 0) { tags.innerHTML = '<p style="color:var(--gray);font-size:13px;">No services selected yet.</p>'; return; }
+  tags.innerHTML = [...selected].map(i => `<span class="selected-service-tag">${services[i].icon} ${services[i].name}</span>`).join('');
+}
+
+function openBookingModal() { updateCartSummary(); openModal('bookingModal'); }
+
+// ===== MY ORDERS =====
+function updateAccountBtn() {
+  const btn = document.getElementById('accountBtn');
+  const user = getCurrentUser();
+  if (user) {
+    const name = user.user_metadata?.full_name?.split(' ')[0] || user.email?.split('@')[0] || 'Account';
+    btn.textContent = `Logout (${name})`;
+    btn.setAttribute('onclick', 'doLogout()');
+  } else {
+    btn.textContent = 'Account / Login';
+    btn.setAttribute('onclick', "openModal('loginModal')");
+  }
+}
+
+async function renderOrders() {
+  const section = document.getElementById('orders');
+  const grid    = document.getElementById('ordersGrid');
+  const user    = getCurrentUser();
+  updateAccountBtn();
+
+  if (!user) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = '';
+  grid.innerHTML = '<p style="color:var(--gray);font-size:14px;">Loading your orders...</p>';
+
+  try {
+    const orders = await sbSelect('bookings', `user_id=eq.${user.id}&order=created_at.desc`);
+
+    if (!orders.length) {
+      grid.innerHTML = `
+        <div class="promo-card">
+          <div class="promo-badge"><i class="fas fa-gift"></i> Limited Offer</div>
+          <h3>Get 40% Off Your First Order!</h3>
+          <p>You haven't booked any services yet. Book now and save big on your first order.</p>
+          <button class="btn-primary" style="justify-content:center;" onclick="document.getElementById('services-list').scrollIntoView({behavior:'smooth'})">
+            <i class="fas fa-bolt"></i> Book a Service Now
+          </button>
+        </div>`;
+      return;
+    }
+
+    const statusClass = { Pending: 'status-pending', Approved: 'status-approved', Completed: 'status-completed', Cancelled: 'status-cancelled' };
+    const statusIcon  = { Pending: '⏳', Approved: '✓', Completed: '✓', Cancelled: '✕' };
+
+    grid.innerHTML = orders.map(o => {
+      const dt = new Date(o.created_at);
+      const dateStr = dt.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' }) + ' — ' + dt.toLocaleTimeString('en-IN', { hour:'numeric', minute:'2-digit' });
+      const cls = statusClass[o.status] || 'status-pending';
+      const icon = statusIcon[o.status] || '⏳';
+      return `
+        <div class="order-card">
+          <div class="order-header">
+            <div class="order-id">
+              <strong>Order ${o.id}</strong>
+              ${dateStr}
+            </div>
+            <div class="status-badge ${cls}">${icon} ${o.status}</div>
+          </div>
+          <div class="order-services">
+            <strong>Services:</strong> ${(o.services || []).join(', ')}
+          </div>
+          <div class="order-total">Total: ₹${o.total}</div>
+        </div>`;
+    }).join('');
+
+  } catch(e) {
+    console.error(e);
+    grid.innerHTML = '<p style="color:var(--gray);font-size:14px;">Book your first order today and enjoy an exclusive 40% discount!</p>';
+  }
+}
+
+
+async function confirmBooking() {
+  const nameEl   = document.querySelector('#bookingModal input[placeholder="Full Name"]');
+  const phoneEl  = document.querySelector('#bookingModal input[placeholder="+91 XXXXX XXXXX"]');
+  const dateEl   = document.querySelector('#bookingModal input[type="date"]');
+  const slotEl   = document.querySelector('#bookingModal select');
+  const addrEl   = document.querySelector('#bookingModal textarea');
+
+  const name    = nameEl?.value.trim();
+  const phone   = phoneEl?.value.trim();
+  const date    = dateEl?.value;
+  const slot    = slotEl?.value;
+  const address = addrEl?.value.trim();
+
+  if (!name || !phone) { showToast('⚠️ Please enter name and phone number.'); return; }
+
+  let sub = 0;
+  selected.forEach(i => sub += services[i].price);
+  const gst   = Math.round(sub * 0.18);
+  const total = sub + gst;
+
+  const currentUser = getCurrentUser();
+  const booking = {
+    id: genId('#EF'),
+    user_id: currentUser?.id || null,
+    email: currentUser?.email || null,
+    name, phone, date, slot, address,
+    services: [...selected].map(i => services[i].name),
+    subtotal: sub, gst, total,
+    status: 'Pending',
+    created_at: new Date().toISOString()
+  };
+
+  const btn = document.querySelector('#bookingModal .btn-primary');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  try {
+    await sbInsert('bookings', booking);
+    closeModal('bookingModal');
+    selected.clear();
+    document.querySelectorAll('.service-card.selected').forEach(c => c.classList.remove('selected'));
+    updateCart();
+    // Clear fields
+    if (nameEl) nameEl.value = '';
+    if (phoneEl) phoneEl.value = '';
+    if (dateEl) dateEl.value = '';
+    if (slotEl) slotEl.value = '';
+    if (addrEl) addrEl.value = '';
+    showToast('🎉 Booking confirmed! You\'ll receive a call shortly.');
+    renderOrders();
+  } catch(e) {
+    showToast('❌ Booking failed. Please try again.');
+    console.error(e);
+  } finally {
+    btn.innerHTML = '<i class="fas fa-bolt"></i> Confirm Booking';
+    btn.disabled = false;
+  }
+}
+
+// ===== CONTACT FORM → SUPABASE =====
+async function submitContact() {
+  const nameEl  = document.querySelector('#contact input[placeholder="Enter your name"]');
+  const emailEl = document.querySelector('#contact input[placeholder="your@email.com"]');
+  const msgEl   = document.querySelector('#contact textarea');
+
+  const name    = nameEl?.value.trim();
+  const email   = emailEl?.value.trim();
+  const message = msgEl?.value.trim();
+
+  if (!name || !message) { showToast('⚠️ Please enter your name and message.'); return; }
+
+  const btn = document.querySelector('#contact .btn-primary');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+  btn.disabled = true;
+  try {
+    await sbInsert('contacts', {
+      id: genId('#MSG'),
+      name, email, message,
+      status: 'Unread',
+      created_at: new Date().toISOString()
+    });
+    if (nameEl) nameEl.value = '';
+    if (emailEl) emailEl.value = '';
+    if (msgEl) msgEl.value = '';
+    showToast('✅ Message sent! We\'ll get back to you shortly.');
+  } catch(e) {
+    showToast('❌ Failed to send. Please try again.');
+  } finally {
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+    btn.disabled = false;
+  }
+}
+
+// ===== FRANCHISE FORM (inline) → SUPABASE =====
+async function submitFranchiseInline() {
+  const box = document.querySelector('.franchise-form-box');
+  const inputs = box.querySelectorAll('input');
+  const sel    = box.querySelector('select');
+  const name   = inputs[0]?.value.trim();
+  const email  = inputs[1]?.value.trim();
+  const phone  = inputs[2]?.value.trim();
+  const city   = inputs[3]?.value.trim();
+  const budget = sel?.value;
+
+  if (!name || !phone) { showToast('⚠️ Please fill name and phone.'); return; }
+
+  const btn = box.querySelector('.btn-primary');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  try {
+    await sbInsert('franchise', {
+      id: genId('#FRA'),
+      name, email, phone, city, budget,
+      status: 'New',
+      created_at: new Date().toISOString()
+    });
+    inputs.forEach(i => i.value = '');
+    if (sel) sel.value = '';
+    showToast('🎉 Application submitted! Our team will contact you soon.');
+  } catch(e) { showToast('❌ Submission failed. Please try again.'); }
+  finally { btn.textContent = 'Submit Franchise Application'; btn.disabled = false; }
+}
+
+// ===== FRANCHISE MODAL → SUPABASE =====
+async function submitFranchiseModal() {
+  const modal   = document.getElementById('franchiseModal');
+  const inputs  = modal.querySelectorAll('input');
+  const sel     = modal.querySelector('select');
+  const name    = inputs[0]?.value.trim();
+  const email   = inputs[1]?.value.trim();
+  const phone   = inputs[2]?.value.trim();
+  const city    = inputs[3]?.value.trim();
+  const budget  = sel?.value;
+
+  if (!name || !phone) { showToast('⚠️ Please fill name and phone.'); return; }
+
+  const btn = modal.querySelector('.btn-primary');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  try {
+    await sbInsert('franchise', {
+      id: genId('#FRA'),
+      name, email, phone, city, budget,
+      status: 'New',
+      created_at: new Date().toISOString()
+    });
+    inputs.forEach(i => i.value = '');
+    if (sel) sel.value = '';
+    closeModal('franchiseModal');
+    showToast('🎉 Application submitted! Our team will contact you soon.');
+  } catch(e) { showToast('❌ Submission failed. Please try again.'); }
+  finally { btn.textContent = 'Submit Franchise Application'; btn.disabled = false; }
+}
+
+// ===== CLERK AUTH =====
+// Loaded via the <script data-clerk-publishable-key="..."> tag in <head>.
+// Replace YOUR_CLERK_PUBLISHABLE_KEY with your real key from clerk.com → API Keys.
+let clerk = null;
+
+function waitForClerkScript() {
+  return new Promise((resolve, reject) => {
+    if (window.Clerk) return resolve(window.Clerk);
+    let tries = 0;
+    const interval = setInterval(() => {
+      tries++;
+      if (window.Clerk) {
+        clearInterval(interval);
+        resolve(window.Clerk);
+      } else if (tries > 100) { // ~10 seconds
+        clearInterval(interval);
+        reject(new Error('Clerk SDK failed to load. Check your publishable key and internet connection.'));
+      }
+    }, 100);
+  });
+}
+
+let clerkReady = (async () => {
+  clerk = await waitForClerkScript();
+  await clerk.load();
+  // If a session already exists (e.g. returning visit), populate ef_user/ef_token
+  if (clerk.user) {
+    await persistClerkSession();
+    renderOrders();
+  }
+})();
+
+async function persistClerkSession() {
+  const token = await clerk.session.getToken();
+  const u = clerk.user;
+  sessionStorage.setItem('ef_token', token);
+  sessionStorage.setItem('ef_user', JSON.stringify({
+    id: u.id,
+    email: u.primaryEmailAddress?.emailAddress,
+    user_metadata: {
+      full_name: u.fullName || `${u.firstName || ''} ${u.lastName || ''}`.trim(),
+      phone: u.primaryPhoneNumber?.phoneNumber || ''
+    }
+  }));
+}
+
+// Stores pending register data while OTP is being verified
+let pendingReg = null;
+
+function authShow(panel) {
+  ['login','register','otp','forgot','success'].forEach(p => {
+    document.getElementById('authPanel-' + p).style.display = 'none';
+  });
+  document.getElementById('authPanel-' + panel).style.display = 'block';
+  const titles = { login:'Welcome Back', register:'Create Account', otp:'Verify Your Email', forgot:'Reset Password', success:'All Done!' };
+  document.getElementById('authModalTitle').textContent = titles[panel] || 'Account';
+  // clear errors
+  ['li-err','reg-err','otp-err','fp-err','fp-success'].forEach(id => {
+    const el = document.getElementById(id); if (el) { el.style.display='none'; el.textContent=''; }
+  });
+}
+
+function authReset() { authShow('login'); pendingReg = null; }
+
+function togglePwd(id, icon) {
+  const inp = document.getElementById(id);
+  const isText = inp.type === 'text';
+  inp.type = isText ? 'password' : 'text';
+  icon.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+}
+
+function setAuthErr(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg; el.style.display = 'block';
+}
+
+function setBtnLoading(id, loading, label) {
+  const btn = document.getElementById(id);
+  btn.disabled = loading;
+  btn.innerHTML = loading ? '<i class="fas fa-spinner fa-spin"></i> Please wait...' : label;
+}
+
+// ── REGISTER ──
+// Flow: signUp.create() → Clerk emails a 6-digit code → verify → session active
+async function doRegister() {
+  const name  = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+  const pass  = document.getElementById('reg-pass').value;
+  const pass2 = document.getElementById('reg-pass2').value;
+
+  if (!name || !email || !pass) return setAuthErr('reg-err', '⚠️ Name, email, and password are required.');
+  if (pass.length < 6)          return setAuthErr('reg-err', '⚠️ Password must be at least 6 characters.');
+  if (pass !== pass2)           return setAuthErr('reg-err', '⚠️ Passwords do not match.');
+
+  setBtnLoading('reg-btn', true, '');
+  try {
+    await clerkReady;
+    const [firstName, ...rest] = name.split(' ');
+    const lastName = rest.join(' ');
+
+    // Normalize phone to E.164 format Clerk expects (e.g. +919390238537)
+    let phoneE164 = phone.replace(/[\s-]/g, '');
+    if (phoneE164 && !phoneE164.startsWith('+')) {
+      phoneE164 = '+91' + phoneE164.replace(/^91/, '').replace(/^0/, '');
+    }
+
+    const signUp = await clerk.client.signUp.create({
+      emailAddress: email,
+      password: pass,
+      firstName,
+      lastName
+    });
+
+    // Trigger Clerk's 6-digit email verification code
+    await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+
+    pendingReg = { name, email, phone: phoneE164, pass };
+    document.getElementById('otp-email-display').textContent = email;
+    authShow('otp');
+
+  } catch(e) {
+    const msg = (e?.errors?.[0]?.longMessage || e?.errors?.[0]?.message || e.message || '');
+    if (msg.toLowerCase().includes('already') || msg.toLowerCase().includes('taken'))
+      setAuthErr('reg-err', '❌ An account with this email already exists. Please sign in instead.');
+    else
+      setAuthErr('reg-err', '❌ ' + (msg || 'Registration failed. Please try again.'));
+  } finally {
+    setBtnLoading('reg-btn', false, '<i class="fas fa-user-plus"></i> Create Account & Send OTP');
+  }
+}
+
+// ── VERIFY OTP ──
+async function doVerifyOtp() {
+  const otp = document.getElementById('otp-code').value.trim();
+  if (!otp || otp.length < 6) return setAuthErr('otp-err', '⚠️ Enter the 6-digit OTP from your email.');
+
+  setBtnLoading('otp-btn', true, '');
+  try {
+    await clerkReady;
+    const result = await clerk.client.signUp.attemptEmailAddressVerification({ code: otp });
+
+    if (result.status !== 'complete') {
+      console.log('Clerk signUp result:', result);
+      const missing = result.missingFields || [];
+      if (missing.includes('phone_number')) {
+        throw new Error('Your Clerk instance requires a phone number field that this form cannot satisfy automatically. Please go to Clerk Dashboard → Configure → User & Authentication → Email, Phone, Username and set Phone number to "Off" or "Optional", then try registering again.');
+      }
+      throw new Error(`Verification incomplete (status: ${result.status}).${missing.length ? ' Missing: ' + missing.join(', ') + '.' : ''}`);
+    }
+
+    // Activate the new session
+    await clerk.setActive({ session: result.createdSessionId });
+    await persistClerkSession();
+
+    // Save phone number to user profile (Clerk doesn't take it at signup by default)
+    if (pendingReg?.phone) {
+      try { await clerk.user.update({ unsafeMetadata: { phone: pendingReg.phone } }); } catch {}
+    }
+
+    // Save user record to logins table for admin dashboard
+    await sbInsert('logins', {
+      id: genId('#USR'),
+      name: pendingReg.name,
+      email: pendingReg.email,
+      phone: pendingReg.phone,
+      created_at: new Date().toISOString()
+    }).catch(() => {}); // non-fatal
+
+    document.getElementById('success-title').textContent = 'Email Verified! 🎉';
+    document.getElementById('success-msg').textContent =
+      `Welcome to MS Home Services & Interiors, ${pendingReg.name}! Your account is ready and you're signed in.`;
+    authShow('success');
+    pendingReg = null;
+    renderOrders();
+
+  } catch(e) {
+    const msg = (e?.errors?.[0]?.longMessage || e?.errors?.[0]?.message || e.message || '');
+    if (msg.toLowerCase().includes('expired'))
+      setAuthErr('otp-err', '❌ OTP has expired. Click "Resend OTP" to get a new one.');
+    else if (msg.toLowerCase().includes('incorrect') || msg.toLowerCase().includes('invalid code'))
+      setAuthErr('otp-err', '❌ Incorrect OTP. Please check your email and try again.');
+    else
+      setAuthErr('otp-err', '❌ ' + (msg || 'Verification failed. Please try again.'));
+    console.error('OTP verify error:', e);
+  } finally {
+    setBtnLoading('otp-btn', false, '<i class="fas fa-check-circle"></i> Verify & Continue');
+  }
+}
+
+// ── RESEND OTP ──
+async function resendOtp() {
+  const email = pendingReg?.email;
+  if (!email) return;
+  try {
+    await clerkReady;
+    await clerk.client.signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
+    showToast('📧 New OTP sent to ' + email);
+  } catch(e) { showToast('❌ Could not resend OTP. Try again in a minute.'); }
+}
+
+// ── LOGIN ──
+async function doLogin() {
+  const email = document.getElementById('li-email').value.trim();
+  const pass  = document.getElementById('li-pass').value;
+  if (!email || !pass) return setAuthErr('li-err', '⚠️ Please enter your email and password.');
+
+  setBtnLoading('li-btn', true, '');
+  try {
+    await clerkReady;
+    const result = await clerk.client.signIn.create({
+      identifier: email,
+      password: pass
+    });
+
+    if (result.status !== 'complete') {
+      throw new Error('Additional verification required. Please try again.');
+    }
+
+    await clerk.setActive({ session: result.createdSessionId });
+    await persistClerkSession();
+    renderOrders();
+
+    const u = clerk.user;
+    const userName = u.fullName || email.split('@')[0];
+    document.getElementById('success-title').textContent = 'Welcome Back! 👋';
+    document.getElementById('success-msg').textContent = `Signed in as ${userName}. Your bookings and services are ready.`;
+    authShow('success');
+    document.getElementById('li-email').value = '';
+    document.getElementById('li-pass').value  = '';
+
+  } catch(e) {
+    const msg = (e?.errors?.[0]?.longMessage || e?.errors?.[0]?.message || e.message || '');
+    if (msg.toLowerCase().includes('identifier') || msg.toLowerCase().includes('password') || msg.toLowerCase().includes('not found'))
+      setAuthErr('li-err', '❌ Incorrect email or password. Please try again.');
+    else if (msg.toLowerCase().includes('verify'))
+      setAuthErr('li-err', '❌ Email not verified. Please complete OTP verification during registration.');
+    else
+      setAuthErr('li-err', '❌ ' + (msg || 'Login failed. Please try again.'));
+  } finally {
+    setBtnLoading('li-btn', false, '<i class="fas fa-sign-in-alt"></i> Sign In');
+  }
+}
+
+// ── FORGOT PASSWORD ──
+// Clerk flow: signIn.create with identifier → prepareFirstFactor(reset_password_email_code)
+async function doForgotPassword() {
+  const email = document.getElementById('fp-email').value.trim();
+  if (!email) return setAuthErr('fp-err', '⚠️ Please enter your email address.');
+
+  setBtnLoading('fp-btn', true, '');
+  try {
+    await clerkReady;
+    const signIn = await clerk.client.signIn.create({ identifier: email });
+    const emailFactor = signIn.supportedFirstFactors?.find(f => f.strategy === 'reset_password_email_code');
+    if (emailFactor) {
+      await signIn.prepareFirstFactor({ strategy: 'reset_password_email_code', emailAddressId: emailFactor.emailAddressId });
+    }
+    const succ = document.getElementById('fp-success');
+    succ.textContent = `✅ Reset code sent to ${email}. Check your inbox (and spam folder).`;
+    succ.style.display = 'block';
+    document.getElementById('fp-err').style.display = 'none';
+    document.getElementById('fp-email').value = '';
+  } catch(e) {
+    // Avoid revealing whether the email exists
+    const succ = document.getElementById('fp-success');
+    succ.textContent = `✅ If an account exists for ${email}, a reset code has been sent.`;
+    succ.style.display = 'block';
+    document.getElementById('fp-err').style.display = 'none';
+  } finally {
+    setBtnLoading('fp-btn', false, '<i class="fas fa-paper-plane"></i> Send Reset Link');
+  }
+}
+
+// ── LOGOUT ──
+async function doLogout() {
+  if (!confirm('Are you sure you want to logout?')) return;
+  await clerkReady;
+  await clerk.signOut();
+  sessionStorage.removeItem('ef_token');
+  sessionStorage.removeItem('ef_user');
+  renderOrders();
+  showToast('👋 You have been logged out.');
+}
+
+// ── OLD submitLogin removed — replaced by doLogin above ──
+
+
+
+// ===== SELL PRODUCT → SUPABASE =====
+async function submitProduct() {
+  const modal     = document.getElementById('sellModal');
+  const inputs    = modal.querySelectorAll('input');
+  const textareas = modal.querySelectorAll('textarea');
+  const title       = inputs[0]?.value.trim();
+  const price       = inputs[1]?.value.trim();
+  const delivery    = inputs[2]?.value.trim();
+  const description = textareas[0]?.value.trim();
+
+  if (!title) { showToast('⚠️ Please enter a product title.'); return; }
+
+  const btn = modal.querySelector('.btn-primary');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  try {
+    await sbInsert('products', {
+      id: genId('#PRD'),
+      title, description, price: parseFloat(price) || 0, delivery,
+      status: 'Pending Review',
+      created_at: new Date().toISOString()
+    });
+    modal.querySelectorAll('input, textarea').forEach(i => i.value = '');
+    closeModal('sellModal');
+    showToast('✅ Product listing submitted for review!');
+  } catch(e) { showToast('❌ Submission failed. Please try again.'); }
+  finally { btn.textContent = 'Submit Listing for Sale'; btn.disabled = false; }
+}
+
+// ===== MODALS =====
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); });
+});
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ===== LOGIN GUARD =====
+function isLoggedIn() {
+  return !!sessionStorage.getItem('ef_token');
+}
+
+function requireLogin(targetModalId) {
+  if (!isLoggedIn()) {
+    const isSell = targetModalId === 'sellModal';
+    showToast(isSell ? '🔒 Please login before selling a product' : '🔒 Please login before booking a service');
+    authReset();
+    openModal('loginModal');
+    return;
+  }
+  openModal(targetModalId);
+  if (targetModalId === 'bookingModal') updateCartSummary();
+}
+
+function guardedOpenBookingModal() {
+  requireLogin('bookingModal');
+}
+
+// City dropdown
+// BRANCH MANAGERS: edit the name + phone below for each location — easy to update anytime
+const branchManagers = {
+  'Chilakaluripeta': { name: '[Shahina Meerja]', phone: '[+91 9515128962]' },
+  'Guntur': { name: '[Shahina Meerja]', phone: '[+91 9515128962]' },
+  'Narsaraopet': { name: '[Mastan vali]', phone: '[+91 8096834573]' }
+};
+function updateBranchManager(city) {
+  const info = branchManagers[city] || { name: '[Add Manager Name]', phone: '[Add Phone Number]' };
+  document.getElementById('branchManagerName').textContent = info.name;
+  const phoneEl = document.getElementById('branchManagerPhone');
+  phoneEl.textContent = info.phone;
+  // Only make it a clickable tel: link if it looks like a real number (digits present)
+  const digitsOnly = info.phone.replace(/\D/g, '');
+  phoneEl.setAttribute('href', digitsOnly ? `tel:${digitsOnly}` : '#');
+}
+const citySelector = document.getElementById('citySelector');
+const cityDropdown = document.getElementById('cityDropdown');
+citySelector.addEventListener('click', e => { e.stopPropagation(); cityDropdown.classList.toggle('open'); });
+document.addEventListener('click', () => cityDropdown.classList.remove('open'));
+cityDropdown.querySelectorAll('.city-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.getElementById('selectedCity').textContent = item.textContent;
+    cityDropdown.classList.remove('open');
+    updateBranchManager(item.textContent);
+  });
+});
+updateBranchManager(document.getElementById('selectedCity').textContent);
+
+// Chatbot
+function toggleChatbot() { document.getElementById('chatbotWindow').classList.toggle('open'); }
+const botResponses = {
+  'Prices?': 'Our prices start from ₹199 for fan installation up to ₹899 for waterproofing. All prices include a 30-day workmanship warranty! 😊',
+  'Service Time?': 'Our professionals arrive within 60 minutes of booking confirmation, 7 days a week including holidays.',
+  'Warranty?': 'We offer a 30-day workmanship warranty on all services. If there\'s any issue within 30 days, we fix it for free!',
+};
+function sendQuick(q) { addMessage(q,'user'); setTimeout(()=>addMessage(botResponses[q]||'Thanks! Our team will get back to you shortly.','bot'),600); }
+function sendChat() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim(); if (!msg) return;
+  addMessage(msg,'user'); input.value='';
+  setTimeout(()=>addMessage('Thanks for your message! Our support team will respond shortly. You can also call us at +91 9515128962 for immediate help.','bot'),700);
+}
+function addMessage(text,role) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `chat-msg ${role}`;
+  div.innerHTML = `<div class="chat-bubble">${text}</div>`;
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+}
+
+// Mobile nav
+function openMobileNav() {
+  document.getElementById('mobileNavDrawer').classList.add('open');
+  document.getElementById('mobileNavOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileNav() {
+  document.getElementById('mobileNavDrawer').classList.remove('open');
+  document.getElementById('mobileNavOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+renderServices();
+renderOrders();
+updateCart();
+
+// Set min date to today
+const dateInputs = document.querySelectorAll('input[type="date"]');
+const today = new Date().toISOString().split('T')[0];
+dateInputs.forEach(d => d.min = today);
+</script>
+</body>
+</html>
