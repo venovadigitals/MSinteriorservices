@@ -853,7 +853,7 @@ function doLogout() {
 // ===== DATA MUTATIONS =====
 async function updateStatus(type, id, status) {
   try {
-    await sbFetch(TABLE_MAP[type], 'PATCH', { status }, `?id=eq.${id}`);
+    await sbFetch(TABLE_MAP[type], 'PATCH', { status }, `?id=eq.${encodeURIComponent(id)}`);
     // update cache
     const item = cache[type].find(x => x.id === id);
     if (item) item.status = status;
@@ -1196,7 +1196,7 @@ async function saveHomeService() {
 
   try {
     if (id) {
-      await sbFetch('home_services', 'PATCH', payload, `?id=eq.${id}`);
+      await sbFetch('home_services', 'PATCH', payload, `?id=eq.${encodeURIComponent(id)}`);
       const item = cache.homeservices.find(x => x.id === id);
       if (item) Object.assign(item, payload);
       showToast('✅ Service updated.');
@@ -1300,7 +1300,7 @@ async function saveShopProduct() {
 
   try {
     if (id) {
-      await sbFetch('shop_products', 'PATCH', payload, `?id=eq.${id}`);
+      await sbFetch('shop_products', 'PATCH', payload, `?id=eq.${encodeURIComponent(id)}`);
       const item = cache.shop.find(x => x.id === id);
       if (item) Object.assign(item, payload);
       showToast('✅ Product updated.');
