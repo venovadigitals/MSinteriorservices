@@ -1468,25 +1468,32 @@ function genId(prefix) {
 }
 
 // ===== SERVICES =====
-const services = [
-  { icon: '⚡', name: 'Electrician', desc: 'Wiring, panels, faults', price: 349 },
-  { icon: '🔧', name: 'Plumber', desc: 'Pipes, leaks, fixtures', price: 299 },
-  { icon: '🧱', name: 'Mason', desc: 'Walls, tiles, repairs', price: 499 },
-  { icon: '🪵', name: 'Carpenter', desc: 'Furniture, doors, wood', price: 399 },
-  { icon: '🎨', name: 'Painter', desc: 'Interior & exterior', price: 599 },
-  { icon: '🌀', name: 'Fan Installation', desc: 'Ceiling & exhaust fans', price: 199 },
-  { icon: '🧹', name: 'Deep Cleaning', desc: 'Full home sanitize', price: 799 },
-  { icon: '❄️', name: 'AC Service', desc: 'Repair & maintenance', price: 449 },
-  { icon: '🚿', name: 'Bathroom Fixing', desc: 'Taps, showers, drains', price: 349 },
-  { icon: '💡', name: 'Switchboard Repair', desc: 'Upgrade & rewire', price: 249 },
-  { icon: '🔒', name: 'Lock & Security', desc: 'Locks, grills, gates', price: 299 },
-  { icon: '🏠', name: 'Waterproofing', desc: 'Roof & wall sealing', price: 899 },
-];
+let services = [];
+
+async function loadHomeServices() {
+  try {
+    const rows = await sbSelect('home_services', 'status=eq.active&order=sort_order.asc');
+    if (rows && rows.length) {
+      services = rows.map(r => ({ icon: r.icon || '🛠️', name: r.name, desc: r.description || '', price: Number(r.price) || 0 }));
+    } else {
+      services = [];
+    }
+  } catch (e) {
+    console.warn('home_services table not available yet.', e);
+    services = [];
+  } finally {
+    renderServices();
+  }
+}
 
 let selected = new Set();
 
 function renderServices() {
   const grid = document.getElementById('servicesGrid');
+  if (!services.length) {
+    grid.innerHTML = `<p style="color:var(--gray);font-size:14px;grid-column:1/-1;text-align:center;padding:24px 0;">Services coming soon. Please check back shortly.</p>`;
+    return;
+  }
   grid.innerHTML = services.map((s, i) => `
     <div class="service-card" id="scard-${i}" onclick="toggleService(${i})">
       <div class="select-tick"><i class="fas fa-check"></i></div>
@@ -2172,7 +2179,7 @@ function closeMobileNav() {
   document.body.style.overflow = '';
 }
 
-renderServices();
+loadHomeServices();
 renderOrders();
 updateCart();
 
