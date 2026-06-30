@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 
-Sitemap: https://msinteriorservices.com/sitemap.xml
+Sitemap: Sitemap: https://msinteriorservices.com/sitemap.xml
