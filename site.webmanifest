@@ -1,0 +1,21 @@
+{
+  "name": "MS Home Services & Interiors",
+  "short_name": "MS Interiors",
+  "description": "Fast, reliable home services at your doorstep in 30-60 minutes — electrical, plumbing, carpentry, and interior works.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a2b8f",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
