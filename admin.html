@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EasyFix Admin Dashboard</title>
+<title>MS Home Services Admin Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
@@ -328,10 +328,10 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
 <!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
-    <div class="login-logo">Easy<span>Fix</span></div>
+    <div class="login-logo">MS<span>Home Services</span></div>
     <h2>Admin Dashboard</h2>
     <p>Sign in with your admin credentials</p>
-    <div class="login-hint"><i class="fas fa-info-circle"></i> Demo credentials — Username: <strong>admin</strong> &nbsp;|&nbsp; Password: <strong>easyfix123</strong></div>
+    <div class="login-hint"><i class="fas fa-info-circle"></i> Demo credentials — Username: <strong>admin</strong> &nbsp;|&nbsp; Password: <strong>msinteriors123</strong></div>
     <div class="login-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div>
     <div class="login-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <button class="btn-login-submit" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> &nbsp;Sign In</button>
@@ -342,7 +342,7 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
 <!-- SIDEBAR -->
 <div id="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-text">Easy<span>Fix</span></div>
+    <div class="logo-text">MS<span>Home Services</span></div>
     <div class="logo-sub">Admin Panel v1.0</div>
   </div>
 
@@ -760,7 +760,7 @@ function getData(type) { return cache[type] || []; }
 function doLogin() {
   const u = document.getElementById('adminUser').value.trim();
   const p = document.getElementById('adminPass').value.trim();
-  if (u === 'admin' && p === 'easyfix123') {
+  if (u === 'admin' && p === 'msinteriors123') {
     document.getElementById('loginScreen').style.display = 'none';
     refreshAll();
   } else {
@@ -1242,7 +1242,7 @@ function exportCSV(type) {
   const csv = [keys.join(','), ...data.map(r => keys.map(k => '"' + String(r[k]||'').replace(/"/g,'""') + '"').join(','))].join('\n');
   const a = document.createElement('a');
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download = 'easyfix_' + type + '_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.download = 'msinteriors_' + type + '_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
   showToast('📥 Exported ' + data.length + ' records.');
 }
