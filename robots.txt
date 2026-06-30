@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 
-Sitemap: https://m-sinteriorservices.vercel.app/sitemap.xml
+Sitemap: https://msinteriorservices.com/sitemap.xml
