@@ -364,17 +364,9 @@ body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark)
     <i class="fas fa-envelope"></i><span>Messages</span>
     <div class="nav-badge red" id="contactBadge">0</div>
   </div>
-  <div class="nav-item" onclick="showPage('products')">
-    <i class="fas fa-box"></i><span>Products</span>
-    <div class="nav-badge" id="productBadge">0</div>
-  </div>
   <div class="nav-item" onclick="showPage('homeservices')">
     <i class="fas fa-tools"></i><span>Home Services</span>
     <div class="nav-badge" id="homeServicesBadge">0</div>
-  </div>
-  <div class="nav-item" onclick="showPage('shop')">
-    <i class="fas fa-store"></i><span>Shop Products</span>
-    <div class="nav-badge" id="shopBadge">0</div>
   </div>
   <div class="nav-item" onclick="showPage('logins')">
     <i class="fas fa-users"></i><span>Users</span>
@@ -853,7 +845,7 @@ function doLogout() {
 // ===== DATA MUTATIONS =====
 async function updateStatus(type, id, status) {
   try {
-    await sbFetch(TABLE_MAP[type], 'PATCH', { status }, `?id=eq.${encodeURIComponent(id)}`);
+    await sbFetch(TABLE_MAP[type], 'PATCH', { status }, `?id=eq.${id}`);
     // update cache
     const item = cache[type].find(x => x.id === id);
     if (item) item.status = status;
@@ -1196,7 +1188,7 @@ async function saveHomeService() {
 
   try {
     if (id) {
-      await sbFetch('home_services', 'PATCH', payload, `?id=eq.${encodeURIComponent(id)}`);
+      await sbFetch('home_services', 'PATCH', payload, `?id=eq.${id}`);
       const item = cache.homeservices.find(x => x.id === id);
       if (item) Object.assign(item, payload);
       showToast('✅ Service updated.');
@@ -1300,7 +1292,7 @@ async function saveShopProduct() {
 
   try {
     if (id) {
-      await sbFetch('shop_products', 'PATCH', payload, `?id=eq.${encodeURIComponent(id)}`);
+      await sbFetch('shop_products', 'PATCH', payload, `?id=eq.${id}`);
       const item = cache.shop.find(x => x.id === id);
       if (item) Object.assign(item, payload);
       showToast('✅ Product updated.');
