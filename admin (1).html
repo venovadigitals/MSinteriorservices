@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EasyFix Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue: #1a56db;
+  --blue-dark: #1142b8;
+  --blue-light: #e8f0fe;
+  --blue-mid: #3b82f6;
+  --orange: #f97316;
+  --orange-light: #fff7ed;
+  --green: #16a34a;
+  --green-light: #f0fdf4;
+  --red: #dc2626;
+  --red-light: #fef2f2;
+  --purple: #7c3aed;
+  --purple-light: #f5f3ff;
+  --amber: #d97706;
+  --amber-light: #fffbeb;
+  --sidebar-bg: #0f172a;
+  --sidebar-hover: #1e293b;
+  --sidebar-active: #1a56db;
+  --dark: #0f172a;
+  --dark2: #1e293b;
+  --gray: #64748b;
+  --gray-light: #f1f5f9;
+  --gray-border: #e2e8f0;
+  --white: #ffffff;
+  --shadow: 0 1px 8px rgba(0,0,0,0.07);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.10);
+  --radius: 12px;
+}
+html, body { height: 100%; }
+body { font-family: 'Inter', sans-serif; background: #f8fafc; color: var(--dark); display: flex; overflow: hidden; }
+
+/* ===== LOGIN SCREEN ===== */
+#loginScreen {
+  position: fixed; inset: 0; background: linear-gradient(135deg,#0f172a,#1e3a8a);
+  display: flex; align-items: center; justify-content: center; z-index: 9999;
+}
+.login-box {
+  background: var(--white); border-radius: 20px; padding: 48px 40px;
+  width: 400px; box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+}
+.login-logo { font-family: 'Poppins',sans-serif; font-size: 26px; font-weight: 800; color: var(--blue); margin-bottom: 6px; }
+.login-logo span { color: var(--orange); }
+.login-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.login-box p { font-size: 13px; color: var(--gray); margin-bottom: 28px; }
+.login-field { margin-bottom: 16px; }
+.login-field label { display: block; font-size: 13px; font-weight: 500; color: var(--gray); margin-bottom: 6px; }
+.login-field input {
+  width: 100%; padding: 11px 14px; border-radius: 8px; border: 1.5px solid var(--gray-border);
+  font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s;
+}
+.login-field input:focus { border-color: var(--blue); }
+.login-hint { font-size: 12px; color: var(--gray); background: var(--gray-light); border-radius: 8px; padding: 10px 12px; margin-bottom: 20px; }
+.btn-login-submit {
+  width: 100%; padding: 13px; background: var(--blue); color: var(--white); border: none;
+  border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: background 0.2s;
+}
+.btn-login-submit:hover { background: var(--blue-dark); }
+.login-error { color: var(--red); font-size: 13px; margin-top: 10px; display: none; }
+
+/* ===== SIDEBAR ===== */
+#sidebar {
+  width: 240px; background: var(--sidebar-bg); height: 100vh;
+  display: flex; flex-direction: column; flex-shrink: 0; overflow-y: auto;
+  transition: width 0.3s;
+}
+.sidebar-logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.sidebar-logo .logo-text { font-family: 'Poppins',sans-serif; font-size: 20px; font-weight: 800; color: var(--white); }
+.sidebar-logo .logo-text span { color: var(--orange); }
+.sidebar-logo .logo-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.sidebar-section-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); padding: 20px 20px 8px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 12px; padding: 11px 20px;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.6);
+  cursor: pointer; border-radius: 0; transition: all 0.18s;
+  border-left: 3px solid transparent; position: relative;
+}
+.nav-item:hover { background: var(--sidebar-hover); color: var(--white); }
+.nav-item.active { background: rgba(26,86,219,0.2); color: var(--white); border-left-color: var(--blue); }
+.nav-item i { width: 18px; text-align: center; font-size: 15px; }
+.nav-badge {
+  margin-left: auto; background: var(--blue); color: var(--white);
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; min-width: 20px; text-align: center;
+}
+.nav-badge.red { background: var(--red); }
+.nav-badge.orange { background: var(--orange); }
+.sidebar-footer {
+  margin-top: auto; padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.admin-profile { display: flex; align-items: center; gap: 10px; }
+.admin-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--blue); color: var(--white); display: flex; align-items: center;
+  justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.admin-name { font-size: 13px; font-weight: 600; color: var(--white); }
+.admin-role { font-size: 11px; color: rgba(255,255,255,0.45); }
+.logout-btn {
+  margin-left: auto; background: none; border: none; color: rgba(255,255,255,0.4);
+  cursor: pointer; font-size: 15px; padding: 4px; transition: color 0.2s;
+}
+.logout-btn:hover { color: var(--red); }
+
+/* ===== MAIN ===== */
+#main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+/* TOPBAR */
+.topbar {
+  background: var(--white); border-bottom: 1px solid var(--gray-border);
+  padding: 0 28px; height: 60px; display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+}
+.topbar-title { font-size: 17px; font-weight: 700; }
+.topbar-sub { font-size: 13px; color: var(--gray); margin-top: 1px; }
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.topbar-btn {
+  padding: 7px 14px; border-radius: 8px; border: 1px solid var(--gray-border);
+  background: var(--white); font-size: 13px; font-weight: 500; cursor: pointer;
+  display: flex; align-items: center; gap: 7px; transition: all 0.2s; color: var(--dark);
+}
+.topbar-btn:hover { border-color: var(--blue); color: var(--blue); }
+.topbar-btn.primary { background: var(--blue); color: var(--white); border-color: var(--blue); }
+.topbar-btn.primary:hover { background: var(--blue-dark); }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); display: inline-block; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+/* CONTENT */
+#content { flex: 1; overflow-y: auto; padding: 28px; }
+
+/* ===== STAT CARDS ===== */
+.stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+.stat-card {
+  background: var(--white); border-radius: var(--radius); border: 1px solid var(--gray-border);
+  padding: 20px; display: flex; align-items: flex-start; gap: 14px;
+  box-shadow: var(--shadow);
+}
+.stat-icon {
+  width: 44px; height: 44px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+}
+.stat-icon.blue { background: var(--blue-light); color: var(--blue); }
+.stat-icon.green { background: var(--green-light); color: var(--green); }
+.stat-icon.orange { background: var(--orange-light); color: var(--orange); }
+.stat-icon.purple { background: var(--purple-light); color: var(--purple); }
+.stat-icon.red { background: var(--red-light); color: var(--red); }
+.stat-icon.amber { background: var(--amber-light); color: var(--amber); }
+.stat-num { font-size: 26px; font-weight: 800; font-family: 'Poppins',sans-serif; line-height: 1; }
+.stat-label { font-size: 12px; color: var(--gray); margin-top: 3px; }
+.stat-delta { font-size: 11px; font-weight: 600; color: var(--green); margin-top: 4px; }
+
+/* ===== SECTION CARD ===== */
+.section-card {
+  background: var(--white); border-radius: var(--radius); border: 1px solid var(--gray-border);
+  box-shadow: var(--shadow); margin-bottom: 24px; overflow: hidden;
+}
+.section-card-header {
+  display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-border);
+}
+.section-card-header h3 { font-size: 15px; font-weight: 700; }
+.section-card-header .count-pill {
+  background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 700;
+  padding: 2px 9px; border-radius: 20px;
+}
+.section-card-header .ml { margin-left: auto; display: flex; gap: 8px; }
+.filter-select {
+  padding: 6px 10px; border-radius: 7px; border: 1px solid var(--gray-border);
+  font-size: 12px; color: var(--gray); background: var(--white); cursor: pointer; font-family: inherit;
+}
+
+/* ===== TABLE ===== */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th {
+  text-align: left; padding: 10px 16px; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.8px; color: var(--gray);
+  background: var(--gray-light); border-bottom: 1px solid var(--gray-border);
+}
+.data-table td { padding: 13px 16px; border-bottom: 1px solid #f0f4f8; vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: #f8fafc; }
+.data-table .name-cell { font-weight: 600; color: var(--dark); }
+.data-table .id-cell { font-size: 11px; color: var(--gray); font-family: monospace; }
+.data-table .date-cell { font-size: 12px; color: var(--gray); }
+.data-table .amount-cell { font-weight: 700; color: var(--blue); }
+.data-table .services-cell { font-size: 12px; color: var(--gray); max-width: 200px; }
+.empty-state { text-align: center; padding: 48px 20px; color: var(--gray); }
+.empty-state i { font-size: 36px; margin-bottom: 12px; display: block; opacity: 0.3; }
+.empty-state p { font-size: 14px; }
+
+/* ===== STATUS BADGES ===== */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap;
+}
+.badge-pending    { background: var(--amber-light);  color: var(--amber); }
+.badge-confirmed  { background: #e0f2fe;              color: #0369a1; }
+.badge-approved   { background: var(--green-light);  color: var(--green); }
+.badge-inprogress { background: var(--purple-light); color: var(--purple); }
+.badge-completed  { background: #f0fdf4;              color: #15803d; }
+.badge-cancelled  { background: var(--red-light);    color: var(--red); }
+.badge-new        { background: var(--blue-light);   color: var(--blue); }
+.badge-unread     { background: #fef9c3;              color: #854d0e; }
+.badge-review     { background: var(--orange-light); color: var(--orange); }
+
+/* ===== ACTION BUTTONS ===== */
+.action-btn {
+  padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 500;
+  cursor: pointer; border: 1px solid; transition: all 0.18s; font-family: inherit;
+}
+.action-btn.approve { border-color: var(--green); color: var(--green); background: var(--white); }
+.action-btn.approve:hover { background: var(--green); color: var(--white); }
+.action-btn.view    { border-color: var(--blue);  color: var(--blue);  background: var(--white); }
+.action-btn.view:hover  { background: var(--blue); color: var(--white); }
+.action-btn.delete  { border-color: #fca5a5; color: var(--red); background: var(--white); }
+.action-btn.delete:hover { background: var(--red); color: var(--white); }
+.actions-cell { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  z-index: 5000; display: none; align-items: center; justify-content: center;
+  padding: 20px; backdrop-filter: blur(3px);
+}
+.modal-overlay.active { display: flex; }
+.modal-box {
+  background: var(--white); border-radius: 16px; width: 100%; max-width: 540px;
+  max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 80px rgba(0,0,0,0.2);
+}
+.modal-box-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 24px; border-bottom: 1px solid var(--gray-border);
+  position: sticky; top: 0; background: var(--white); z-index: 1;
+}
+.modal-box-header h3 { font-size: 16px; font-weight: 700; }
+.modal-x {
+  width: 30px; height: 30px; border-radius: 7px; border: 1px solid var(--gray-border);
+  background: var(--white); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 15px; color: var(--gray); transition: all 0.2s;
+}
+.modal-x:hover { background: var(--gray-light); }
+.modal-box-body { padding: 24px; }
+.detail-row { display: flex; padding: 10px 0; border-bottom: 1px solid #f0f4f8; gap: 12px; }
+.detail-row:last-child { border-bottom: none; }
+.detail-label { font-size: 12px; font-weight: 600; color: var(--gray); min-width: 130px; flex-shrink: 0; }
+.detail-value { font-size: 13px; color: var(--dark); font-weight: 500; }
+.detail-services { display: flex; flex-wrap: wrap; gap: 6px; }
+.service-tag {
+  padding: 4px 10px; border-radius: 6px; background: var(--blue-light);
+  color: var(--blue); font-size: 12px; font-weight: 500;
+}
+
+/* ===== STATUS SELECT ===== */
+.status-select {
+  padding: 5px 10px; border-radius: 7px; border: 1px solid var(--gray-border);
+  font-size: 12px; font-weight: 500; background: var(--white); cursor: pointer; font-family: inherit;
+}
+
+/* ===== FORM (Shop product modal) ===== */
+.form-row { margin-bottom: 14px; }
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-label { display: block; font-size: 12px; font-weight: 600; color: var(--gray); margin-bottom: 6px; }
+.form-input {
+  width: 100%; padding: 10px 12px; border-radius: 8px; border: 1.5px solid var(--gray-border);
+  font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.2s; background: var(--white);
+}
+.form-input:focus { border-color: var(--blue); }
+.shop-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: var(--gray-light); }
+.tag-pill { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin-right: 4px; }
+.tag-pill.new { background: var(--blue-light); color: var(--blue); }
+.tag-pill.offer { background: var(--orange-light); color: var(--orange); }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px);
+  background: var(--dark); color: var(--white); padding: 12px 24px;
+  border-radius: 10px; font-size: 13px; font-weight: 500; z-index: 9000;
+  transition: transform 0.3s; white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ===== SEARCH BAR ===== */
+.search-bar {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+  border: 1px solid var(--gray-border); border-radius: 8px; background: var(--white);
+}
+.search-bar i { color: var(--gray); font-size: 13px; }
+.search-bar input {
+  border: none; outline: none; font-size: 13px; color: var(--dark);
+  background: transparent; font-family: inherit; min-width: 0; width: 160px;
+}
+
+/* ===== CHART BAR ===== */
+.mini-chart { display: flex; align-items: flex-end; gap: 4px; height: 48px; }
+.bar { width: 20px; border-radius: 3px 3px 0 0; background: var(--blue-light); transition: height 0.3s; }
+.bar.active { background: var(--blue); }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+@media (max-width: 900px) {
+  #sidebar { width: 56px; }
+  .sidebar-logo .logo-text, .sidebar-logo .logo-sub, .nav-item span, .sidebar-section-label, .admin-name, .admin-role { display: none; }
+  .nav-badge { position: absolute; top: 4px; right: 4px; font-size: 9px; padding: 1px 4px; }
+  .sidebar-footer .logout-btn { margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">Easy<span>Fix</span></div>
+    <h2>Admin Dashboard</h2>
+    <p>Sign in with your admin credentials</p>
+    <div class="login-hint"><i class="fas fa-info-circle"></i> Demo credentials — Username: <strong>admin</strong> &nbsp;|&nbsp; Password: <strong>easyfix123</strong></div>
+    <div class="login-field"><label>Username</label><input type="text" id="adminUser" placeholder="admin"></div>
+    <div class="login-field"><label>Password</label><input type="password" id="adminPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button class="btn-login-submit" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> &nbsp;Sign In</button>
+    <div class="login-error" id="loginError">❌ Incorrect credentials. Please try again.</div>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">Easy<span>Fix</span></div>
+    <div class="logo-sub">Admin Panel v1.0</div>
+  </div>
+
+  <div class="sidebar-section-label">Overview</div>
+  <div class="nav-item active" onclick="showPage('dashboard')">
+    <i class="fas fa-th-large"></i><span>Dashboard</span>
+  </div>
+
+  <div class="sidebar-section-label">Requests</div>
+  <div class="nav-item" onclick="showPage('bookings')">
+    <i class="fas fa-calendar-check"></i><span>Bookings</span>
+    <div class="nav-badge" id="bookingBadge">0</div>
+  </div>
+  <div class="nav-item" onclick="showPage('franchise')">
+    <i class="fas fa-handshake"></i><span>Franchise</span>
+    <div class="nav-badge orange" id="franchiseBadge">0</div>
+  </div>
+  <div class="nav-item" onclick="showPage('contacts')">
+    <i class="fas fa-envelope"></i><span>Messages</span>
+    <div class="nav-badge red" id="contactBadge">0</div>
+  </div>
+  <div class="nav-item" onclick="showPage('products')">
+    <i class="fas fa-box"></i><span>Products</span>
+    <div class="nav-badge" id="productBadge">0</div>
+  </div>
+  <div class="nav-item" onclick="showPage('shop')">
+    <i class="fas fa-store"></i><span>Shop Products</span>
+    <div class="nav-badge" id="shopBadge">0</div>
+  </div>
+  <div class="nav-item" onclick="showPage('logins')">
+    <i class="fas fa-users"></i><span>Users</span>
+    <div class="nav-badge" id="loginBadge">0</div>
+  </div>
+
+  <div class="sidebar-section-label">Tools</div>
+  <div class="nav-item" onclick="clearAllData()">
+    <i class="fas fa-trash-alt"></i><span>Clear All Data</span>
+  </div>
+  <div class="nav-item" onclick="window.open('index.html','_blank')">
+    <i class="fas fa-external-link-alt"></i><span>Open Website</span>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="admin-profile">
+      <div class="admin-avatar">A</div>
+      <div>
+        <div class="admin-name">Admin</div>
+        <div class="admin-role">Super Admin</div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()" title="Logout"><i class="fas fa-sign-out-alt"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+      <div class="topbar-sub" id="topbarSub">Welcome back, Admin</div>
+    </div>
+    <div class="topbar-right">
+      <span style="font-size:12px;color:var(--gray);display:flex;align-items:center;gap:6px;">
+        <span class="live-dot"></span> Live
+      </span>
+      <button class="topbar-btn" onclick="refreshAll()"><i class="fas fa-sync-alt"></i> Refresh</button>
+      <button class="topbar-btn primary" onclick="window.open('index.html','_blank')"><i class="fas fa-external-link-alt"></i> View Site</button>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- ===== DASHBOARD PAGE ===== -->
+    <div id="page-dashboard">
+      <div class="stats-row" id="statsRow"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+        <!-- Recent Bookings -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <i class="fas fa-calendar-check" style="color:var(--blue)"></i>
+            <h3>Recent Bookings</h3>
+            <div class="count-pill" id="recentBookCount">0</div>
+            <div class="ml">
+              <button class="topbar-btn" onclick="showPage('bookings')">View All →</button>
+            </div>
+          </div>
+          <div id="recentBookings"></div>
+        </div>
+
+        <!-- Recent Messages -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <i class="fas fa-envelope" style="color:var(--red)"></i>
+            <h3>Recent Messages</h3>
+            <div class="count-pill" id="recentMsgCount">0</div>
+            <div class="ml">
+              <button class="topbar-btn" onclick="showPage('contacts')">View All →</button>
+            </div>
+          </div>
+          <div id="recentMessages"></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <!-- Franchise Leads -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <i class="fas fa-handshake" style="color:var(--orange)"></i>
+            <h3>Franchise Leads</h3>
+            <div class="count-pill" id="recentFranchiseCount">0</div>
+            <div class="ml">
+              <button class="topbar-btn" onclick="showPage('franchise')">View All →</button>
+            </div>
+          </div>
+          <div id="recentFranchise"></div>
+        </div>
+
+        <!-- Product Listings -->
+        <div class="section-card">
+          <div class="section-card-header">
+            <i class="fas fa-box" style="color:var(--purple)"></i>
+            <h3>Product Listings</h3>
+            <div class="count-pill" id="recentProductCount">0</div>
+            <div class="ml">
+              <button class="topbar-btn" onclick="showPage('products')">View All →</button>
+            </div>
+          </div>
+          <div id="recentProducts"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BOOKINGS PAGE ===== -->
+    <div id="page-bookings" style="display:none">
+      <div class="section-card">
+        <div class="section-card-header">
+          <i class="fas fa-calendar-check" style="color:var(--blue)"></i>
+          <h3>All Bookings</h3>
+          <div class="count-pill" id="bookCountPill">0</div>
+          <div class="ml">
+            <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="bookSearch" placeholder="Search..." oninput="filterTable('bookings')"></div>
+            <select class="filter-select" id="bookFilter" onchange="filterTable('bookings')">
+              <option value="">All Status</option>
+              <option>Pending</option>
+              <option>Confirmed</option>
+              <option>In Progress</option>
+              <option>Completed</option>
+              <option>Cancelled</option>
+            </select>
+            <button class="topbar-btn primary" onclick="exportCSV('bookings')"><i class="fas fa-download"></i> Export</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Customer</th><th>Phone</th><th>Services</th>
+                <th>Date / Slot</th><th>Total</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bookingsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FRANCHISE PAGE ===== -->
+    <div id="page-franchise" style="display:none">
+      <div class="section-card">
+        <div class="section-card-header">
+          <i class="fas fa-handshake" style="color:var(--orange)"></i>
+          <h3>Franchise Applications</h3>
+          <div class="count-pill" id="franchiseCountPill">0</div>
+          <div class="ml">
+            <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="franchiseSearch" placeholder="Search..." oninput="filterTable('franchise')"></div>
+            <button class="topbar-btn primary" onclick="exportCSV('franchise')"><i class="fas fa-download"></i> Export</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Name</th><th>Email</th><th>Phone</th>
+                <th>City</th><th>Budget</th><th>Status</th><th>Date</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="franchiseTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONTACTS PAGE ===== -->
+    <div id="page-contacts" style="display:none">
+      <div class="section-card">
+        <div class="section-card-header">
+          <i class="fas fa-envelope" style="color:var(--red)"></i>
+          <h3>Contact Messages</h3>
+          <div class="count-pill" id="contactCountPill">0</div>
+          <div class="ml">
+            <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="contactSearch" placeholder="Search..." oninput="filterTable('contacts')"></div>
+            <button class="topbar-btn primary" onclick="exportCSV('contacts')"><i class="fas fa-download"></i> Export</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Name</th><th>Email</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="contactsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PRODUCTS PAGE ===== -->
+    <div id="page-products" style="display:none">
+      <div class="section-card">
+        <div class="section-card-header">
+          <i class="fas fa-box" style="color:var(--purple)"></i>
+          <h3>Product Listings</h3>
+          <div class="count-pill" id="productCountPill">0</div>
+          <div class="ml">
+            <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="productSearch" placeholder="Search..." oninput="filterTable('products')"></div>
+            <button class="topbar-btn primary" onclick="exportCSV('products')"><i class="fas fa-download"></i> Export</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Title</th><th>Description</th><th>Price</th><th>Delivery</th><th>Status</th><th>Date</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="productsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SHOP PRODUCTS PAGE ===== -->
+    <div id="page-shop" style="display:none">
+      <div class="section-card">
+        <div class="section-card-header">
+          <i class="fas fa-store" style="color:var(--green)"></i>
+          <h3>Shop Products</h3>
+          <div class="count-pill" id="shopCountPill">0</div>
+          <div class="ml">
+            <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="shopSearch" placeholder="Search..." oninput="filterTable('shop')"></div>
+            <button class="topbar-btn primary" onclick="openShopModal()"><i class="fas fa-plus"></i> Add Product</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Image</th><th>Name</th><th>Category</th><th>Price</th><th>Tags</th><th>Status</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="shopTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== LOGINS PAGE ===== -->
+    <div id="page-logins" style="display:none">
+      <div class="section-card">
+        <div class="section-card-header">
+          <i class="fas fa-users" style="color:var(--blue)"></i>
+          <h3>User Registrations / Logins</h3>
+          <div class="count-pill" id="loginCountPill">0</div>
+          <div class="ml">
+            <div class="search-bar"><i class="fas fa-search"></i><input type="text" id="loginSearch" placeholder="Search..." oninput="filterTable('logins')"></div>
+            <button class="topbar-btn primary" onclick="exportCSV('logins')"><i class="fas fa-download"></i> Export</button>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Date</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="loginsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal-box">
+    <div class="modal-box-header">
+      <h3 id="modalTitle">Details</h3>
+      <button class="modal-x" onclick="closeDetailModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-box-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- SHOP PRODUCT ADD/EDIT MODAL -->
+<div class="modal-overlay" id="shopModal">
+  <div class="modal-box">
+    <div class="modal-box-header">
+      <h3 id="shopModalTitle">Add Product</h3>
+      <button class="modal-x" onclick="closeShopModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-box-body">
+      <input type="hidden" id="shopId">
+      <div class="form-row">
+        <label class="form-label">Product Name</label>
+        <input type="text" id="shopName" class="form-input" placeholder="e.g. Cordless Drill Machine 18V">
+      </div>
+      <div class="form-row form-row-2">
+        <div>
+          <label class="form-label">Price (₹)</label>
+          <input type="number" id="shopPrice" class="form-input" placeholder="3499">
+        </div>
+        <div>
+          <label class="form-label">Original Price (₹) — optional</label>
+          <input type="number" id="shopOriginalPrice" class="form-input" placeholder="4299">
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">Category</label>
+        <input type="text" id="shopCategory" class="form-input" placeholder="e.g. Power Tools">
+      </div>
+      <div class="form-row">
+        <label class="form-label">Image URL</label>
+        <input type="text" id="shopImage" class="form-input" placeholder="https://...">
+      </div>
+      <div class="form-row">
+        <label class="form-label">WhatsApp Number (for Enquire Now) — optional</label>
+        <input type="text" id="shopWaNum" class="form-input" placeholder="919390238537">
+      </div>
+      <div class="form-row form-row-2">
+        <div>
+          <label class="form-label">Stock Status</label>
+          <select id="shopStatus" class="form-input">
+            <option value="instock">In Stock</option>
+            <option value="outofstock">Out of Stock</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label">Tags</label>
+          <div style="display:flex;gap:16px;align-items:center;height:42px;">
+            <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;cursor:pointer;">
+              <input type="checkbox" id="shopIsNew" style="width:16px;height:16px;"> New
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;cursor:pointer;">
+              <input type="checkbox" id="shopIsOffer" style="width:16px;height:16px;"> Offer
+            </label>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:10px;">
+        <button class="topbar-btn primary" style="flex:1;justify-content:center;padding:12px" onclick="saveShopProduct()"><i class="fas fa-save"></i> Save Product</button>
+        <button class="topbar-btn" style="padding:12px 18px" onclick="closeShopModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== SUPABASE CONFIG =====
+const SB_URL = 'https://lonyxwzivoetbqibpjhj.supabase.co/rest/v1';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxvbnl4d3ppdm9ldGJxaWJwamhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNjMxNzksImV4cCI6MjA5NjkzOTE3OX0.1QlFEUJ7fwcooTjTZqbJoEWei3kApHhj8WmwLwWUW_4';
+const SB_HEADERS = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+
+// Table name mapping
+const TABLE_MAP = { bookings: 'bookings', franchise: 'franchise', contacts: 'contacts', products: 'products', logins: 'logins', shop: 'shop_products' };
+
+// In-memory cache
+let cache = { bookings: [], franchise: [], contacts: [], products: [], logins: [], shop: [] };
+
+async function sbFetch(table, method='GET', body=null, query='') {
+  const res = await fetch(`${SB_URL}/${table}${query}`, {
+    method, headers: SB_HEADERS, body: body ? JSON.stringify(body) : null
+  });
+  if (!res.ok) { const err = await res.text(); throw new Error(err); }
+  return method === 'DELETE' ? null : res.json();
+}
+
+async function loadAll() {
+  try {
+    const [bookings, franchise, contacts, products, logins, shop] = await Promise.all([
+      sbFetch('bookings', 'GET', null, '?order=created_at.desc'),
+      sbFetch('franchise', 'GET', null, '?order=created_at.desc'),
+      sbFetch('contacts', 'GET', null, '?order=created_at.desc'),
+      sbFetch('products', 'GET', null, '?order=created_at.desc'),
+      sbFetch('logins', 'GET', null, '?order=created_at.desc'),
+      sbFetch('shop_products', 'GET', null, '?order=created_at.desc').catch(() => []),
+    ]);
+    cache.bookings  = bookings  || [];
+    cache.franchise = franchise || [];
+    cache.contacts  = contacts  || [];
+    cache.products  = products  || [];
+    cache.logins    = logins    || [];
+    cache.shop      = shop      || [];
+  } catch(e) { showToast('⚠️ Could not load data: ' + e.message); }
+}
+
+function getData(type) { return cache[type] || []; }
+
+// ===== AUTH =====
+function doLogin() {
+  const u = document.getElementById('adminUser').value.trim();
+  const p = document.getElementById('adminPass').value.trim();
+  if (u === 'admin' && p === 'easyfix123') {
+    document.getElementById('loginScreen').style.display = 'none';
+    refreshAll();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+function doLogout() {
+  document.getElementById('loginScreen').style.display = 'flex';
+}
+
+// ===== DATA MUTATIONS =====
+async function updateStatus(type, id, status) {
+  try {
+    await sbFetch(TABLE_MAP[type], 'PATCH', { status }, `?id=eq.${id}`);
+    // update cache
+    const item = cache[type].find(x => x.id === id);
+    if (item) item.status = status;
+    renderPage(currentPage);
+    updateBadges();
+    showToast('✅ Status updated to: ' + status);
+  } catch(e) { showToast('❌ Update failed: ' + e.message); }
+}
+
+async function deleteItem(type, id) {
+  if (!confirm('Delete this record?')) return;
+  try {
+    await sbFetch(TABLE_MAP[type], 'DELETE', null, `?id=eq.${encodeURIComponent(id)}`);
+    cache[type] = cache[type].filter(x => x.id !== id);
+    renderPage(currentPage);
+    updateBadges();
+    showToast('🗑️ Record deleted.');
+  } catch(e) { showToast('❌ Delete failed: ' + e.message); }
+}
+
+async function clearAllData() {
+  if (!confirm('Clear ALL data from all tables? This cannot be undone.')) return;
+  try {
+    await Promise.all(Object.values(TABLE_MAP).map(t => sbFetch(t, 'DELETE', null, '?id=neq.null').catch(()=>null)));
+    cache = { bookings: [], franchise: [], contacts: [], products: [], logins: [], shop: [] };
+    renderPage(currentPage);
+    updateBadges();
+    showToast('All data cleared.');
+  } catch(e) { showToast('❌ Clear failed: ' + e.message); }
+}
+
+// ===== PAGES =====
+
+let currentPage = 'dashboard';
+function showPage(page) {
+  document.querySelectorAll('[id^="page-"]').forEach(p => p.style.display = 'none');
+  document.getElementById('page-' + page).style.display = 'block';
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const titles = {
+    dashboard: ['Dashboard','Overview of all activity'],
+    bookings:  ['Bookings','All service booking requests'],
+    franchise: ['Franchise Applications','All franchise enquiries'],
+    contacts:  ['Contact Messages','Customer messages & queries'],
+    products:  ['Product Listings','Seller product submissions'],
+    shop:      ['Shop Products','Catalog shown on the Products page'],
+    logins:    ['User Registrations','Registered & logged-in users'],
+  };
+  document.getElementById('topbarTitle').textContent = titles[page][0];
+  document.getElementById('topbarSub').textContent = titles[page][1];
+  document.querySelectorAll('.nav-item')[['dashboard','bookings','franchise','contacts','products','shop','logins'].indexOf(page)]?.classList.add('active');
+  currentPage = page;
+  renderPage(page);
+}
+
+// ===== REFRESH =====
+async function refreshAll() {
+  await loadAll();
+  updateBadges();
+  renderPage(currentPage);
+}
+
+function updateBadges() {
+  document.getElementById('bookingBadge').textContent   = cache.bookings.length;
+  document.getElementById('franchiseBadge').textContent = cache.franchise.length;
+  document.getElementById('contactBadge').textContent   = cache.contacts.length;
+  document.getElementById('productBadge').textContent   = cache.products.length;
+  document.getElementById('shopBadge').textContent      = cache.shop.length;
+  document.getElementById('loginBadge').textContent     = cache.logins.length;
+}
+
+function renderPage(page) {
+  updateBadges();
+  if (page === 'dashboard')  renderDashboard();
+  if (page === 'bookings')   renderBookings(cache.bookings);
+  if (page === 'franchise')  renderFranchise(cache.franchise);
+  if (page === 'contacts')   renderContacts(cache.contacts);
+  if (page === 'products')   renderProducts(cache.products);
+  if (page === 'shop')       renderShop(cache.shop);
+  if (page === 'logins')     renderLogins(cache.logins);
+}
+
+// ===== DASHBOARD =====
+function renderDashboard() {
+  const bookings  = cache.bookings;
+  const franchise = cache.franchise;
+  const contacts  = cache.contacts;
+  const products  = cache.products;
+  const logins    = cache.logins;
+  const revenue   = bookings.reduce((s,b) => s + (b.total||0), 0);
+
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-icon blue"><i class="fas fa-calendar-check"></i></div>
+      <div><div class="stat-num">${bookings.length}</div><div class="stat-label">Total Bookings</div>
+      <div class="stat-delta">▲ Live from website</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green"><i class="fas fa-rupee-sign"></i></div>
+      <div><div class="stat-num">₹${revenue.toLocaleString('en-IN')}</div><div class="stat-label">Est. Revenue</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon orange"><i class="fas fa-handshake"></i></div>
+      <div><div class="stat-num">${franchise.length}</div><div class="stat-label">Franchise Leads</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon red"><i class="fas fa-envelope"></i></div>
+      <div><div class="stat-num">${contacts.length}</div><div class="stat-label">Messages</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon purple"><i class="fas fa-box"></i></div>
+      <div><div class="stat-num">${products.length}</div><div class="stat-label">Product Listings</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon amber"><i class="fas fa-users"></i></div>
+      <div><div class="stat-num">${logins.length}</div><div class="stat-label">User Signups</div></div>
+    </div>
+  `;
+
+  // Recent bookings mini
+  document.getElementById('recentBookCount').textContent = bookings.length;
+  const rb = document.getElementById('recentBookings');
+  if (!bookings.length) { rb.innerHTML = emptyState('calendar-check','No bookings yet'); return; }
+  rb.innerHTML = '<table class="data-table"><thead><tr><th>Customer</th><th>Services</th><th>Total</th><th>Status</th></tr></thead><tbody>' +
+    bookings.slice(0,5).map(b => `<tr>
+      <td class="name-cell">${esc(b.name)}</td>
+      <td class="services-cell">${(b.services||[]).slice(0,2).join(', ')}</td>
+      <td class="amount-cell">₹${b.total||0}</td>
+      <td>${statusBadge(b.status)}</td>
+    </tr>`).join('') + '</tbody></table>';
+
+  // Recent messages
+  document.getElementById('recentMsgCount').textContent = contacts.length;
+  const rm = document.getElementById('recentMessages');
+  if (!contacts.length) { rm.innerHTML = emptyState('envelope','No messages yet'); return; }
+  rm.innerHTML = '<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Status</th></tr></thead><tbody>' +
+    contacts.slice(0,5).map(c => `<tr>
+      <td class="name-cell">${esc(c.name)}</td>
+      <td class="date-cell">${esc(c.email)}</td>
+      <td>${statusBadge(c.status)}</td>
+    </tr>`).join('') + '</tbody></table>';
+
+  // Franchise mini
+  document.getElementById('recentFranchiseCount').textContent = franchise.length;
+  const rf = document.getElementById('recentFranchise');
+  if (!franchise.length) { rf.innerHTML = emptyState('handshake','No franchise applications yet'); return; }
+  rf.innerHTML = '<table class="data-table"><thead><tr><th>Name</th><th>City</th><th>Budget</th><th>Status</th></tr></thead><tbody>' +
+    franchise.slice(0,5).map(f => `<tr>
+      <td class="name-cell">${esc(f.name)}</td>
+      <td class="date-cell">${esc(f.city)}</td>
+      <td class="date-cell" style="font-size:11px">${esc(f.budget)}</td>
+      <td>${statusBadge(f.status)}</td>
+    </tr>`).join('') + '</tbody></table>';
+
+  // Products mini
+  document.getElementById('recentProductCount').textContent = products.length;
+  const rp = document.getElementById('recentProducts');
+  if (!products.length) { rp.innerHTML = emptyState('box','No product listings yet'); return; }
+  rp.innerHTML = '<table class="data-table"><thead><tr><th>Product</th><th>Price</th><th>Status</th></tr></thead><tbody>' +
+    products.slice(0,5).map(p => `<tr>
+      <td class="name-cell">${esc(p.title)}</td>
+      <td class="amount-cell">₹${p.price||0}</td>
+      <td>${statusBadge(p.status)}</td>
+    </tr>`).join('') + '</tbody></table>';
+}
+
+// ===== BOOKINGS TABLE =====
+function renderBookings(data) {
+  document.getElementById('bookCountPill').textContent = data.length;
+  const tb = document.getElementById('bookingsTable');
+  if (!data.length) { tb.innerHTML = `<tr><td colspan="8">${emptyState('calendar-check','No bookings yet. Submit a booking from the website.')}</td></tr>`; return; }
+  tb.innerHTML = data.map(b => `<tr>
+    <td class="id-cell">${esc(b.id)}</td>
+    <td class="name-cell">${esc(b.name)}</td>
+    <td class="date-cell">${esc(b.phone)}</td>
+    <td class="services-cell">${(b.services||[]).join(', ') || '—'}</td>
+    <td class="date-cell">${esc(b.date) || '—'}<br><span style="font-size:11px;color:#94a3b8">${esc(b.slot||'')}</span></td>
+    <td class="amount-cell">₹${b.total||0}</td>
+    <td>
+      <select class="status-select" onchange="updateStatus('bookings','${b.id}',this.value)">
+        ${['Pending','Confirmed','In Progress','Completed','Cancelled'].map(s => `<option${b.status===s?' selected':''}>${s}</option>`).join('')}
+      </select>
+    </td>
+    <td>
+      <div class="actions-cell">
+        <button class="action-btn view" onclick="viewBookingDetail('${b.id}')">View</button>
+        <button class="action-btn delete" onclick="deleteItem('bookings','${b.id}')">Delete</button>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+
+// ===== FRANCHISE TABLE =====
+function renderFranchise(data) {
+  document.getElementById('franchiseCountPill').textContent = data.length;
+  const tb = document.getElementById('franchiseTable');
+  if (!data.length) { tb.innerHTML = `<tr><td colspan="9">${emptyState('handshake','No franchise applications yet.')}</td></tr>`; return; }
+  tb.innerHTML = data.map(f => `<tr>
+    <td class="id-cell">${esc(f.id)}</td>
+    <td class="name-cell">${esc(f.name)}</td>
+    <td class="date-cell">${esc(f.email)}</td>
+    <td class="date-cell">${esc(f.phone)}</td>
+    <td>${esc(f.city)}</td>
+    <td style="font-size:12px">${esc(f.budget)}</td>
+    <td>
+      <select class="status-select" onchange="updateStatus('franchise','${f.id}',this.value)">
+        ${['New','Contacted','Qualified','Rejected'].map(s => `<option${f.status===s?' selected':''}>${s}</option>`).join('')}
+      </select>
+    </td>
+    <td class="date-cell">${fmtDate(f.created_at)}</td>
+    <td>
+      <div class="actions-cell">
+        <button class="action-btn approve" onclick="updateStatus('franchise','${f.id}','Qualified')">Qualify</button>
+        <button class="action-btn delete" onclick="deleteItem('franchise','${f.id}')">Delete</button>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+
+// ===== CONTACTS TABLE =====
+function renderContacts(data) {
+  document.getElementById('contactCountPill').textContent = data.length;
+  const tb = document.getElementById('contactsTable');
+  if (!data.length) { tb.innerHTML = `<tr><td colspan="7">${emptyState('envelope','No messages yet.')}</td></tr>`; return; }
+  tb.innerHTML = data.map(c => `<tr>
+    <td class="id-cell">${esc(c.id)}</td>
+    <td class="name-cell">${esc(c.name)}</td>
+    <td class="date-cell">${esc(c.email)}</td>
+    <td class="services-cell" style="max-width:220px">${esc(c.message).substring(0,80)}${c.message.length>80?'…':''}</td>
+    <td>
+      <select class="status-select" onchange="updateStatus('contacts','${c.id}',this.value)">
+        ${['Unread','Read','Replied'].map(s => `<option${c.status===s?' selected':''}>${s}</option>`).join('')}
+      </select>
+    </td>
+    <td class="date-cell">${fmtDate(c.created_at)}</td>
+    <td>
+      <div class="actions-cell">
+        <button class="action-btn view" onclick="viewContactDetail('${c.id}')">View</button>
+        <button class="action-btn delete" onclick="deleteItem('contacts','${c.id}')">Delete</button>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+
+// ===== PRODUCTS TABLE =====
+function renderProducts(data) {
+  document.getElementById('productCountPill').textContent = data.length;
+  const tb = document.getElementById('productsTable');
+  if (!data.length) { tb.innerHTML = `<tr><td colspan="8">${emptyState('box','No product listings yet.')}</td></tr>`; return; }
+  tb.innerHTML = data.map(p => `<tr>
+    <td class="id-cell">${esc(p.id)}</td>
+    <td class="name-cell">${esc(p.title)}</td>
+    <td class="services-cell">${esc(p.description).substring(0,60)}${p.description.length>60?'…':''}</td>
+    <td class="amount-cell">₹${p.price||0}</td>
+    <td class="date-cell">${esc(p.delivery)}</td>
+    <td>
+      <select class="status-select" onchange="updateStatus('products','${p.id}',this.value)">
+        ${['Pending Review','Approved','Rejected'].map(s => `<option${p.status===s?' selected':''}>${s}</option>`).join('')}
+      </select>
+    </td>
+    <td class="date-cell">${fmtDate(p.created_at)}</td>
+    <td>
+      <div class="actions-cell">
+        <button class="action-btn approve" onclick="updateStatus('products','${p.id}','Approved')">Approve</button>
+        <button class="action-btn delete" onclick="deleteItem('products','${p.id}')">Delete</button>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+
+// ===== SHOP PRODUCTS TABLE =====
+function renderShop(data) {
+  document.getElementById('shopCountPill').textContent = data.length;
+  const tb = document.getElementById('shopTable');
+  if (!data.length) { tb.innerHTML = `<tr><td colspan="7">${emptyState('store','No shop products yet. Click "Add Product" to create one.')}</td></tr>`; return; }
+  tb.innerHTML = data.map(p => `<tr>
+    <td>${p.image ? `<img class="shop-thumb" src="${esc(p.image)}" onerror="this.style.display='none'">` : '<div class="shop-thumb"></div>'}</td>
+    <td class="name-cell">${esc(p.name)}</td>
+    <td class="date-cell">${esc(p.category)||'—'}</td>
+    <td class="amount-cell">₹${Number(p.price||0).toLocaleString('en-IN')}${p.original_price ? ` <span style="color:#94a3b8;text-decoration:line-through;font-weight:400;font-size:11px">₹${Number(p.original_price).toLocaleString('en-IN')}</span>` : ''}</td>
+    <td>${p.is_new ? '<span class="tag-pill new">New</span>' : ''}${p.is_offer ? '<span class="tag-pill offer">Offer</span>' : ''}${!p.is_new && !p.is_offer ? '—' : ''}</td>
+    <td>
+      <select class="status-select" onchange="updateStatus('shop','${p.id}',this.value)">
+        ${['instock','outofstock'].map(s => `<option value="${s}"${p.status===s?' selected':''}>${s==='instock'?'In Stock':'Out of Stock'}</option>`).join('')}
+      </select>
+    </td>
+    <td>
+      <div class="actions-cell">
+        <button class="action-btn view" onclick='editShopProduct(${JSON.stringify(p.id)})'>Edit</button>
+        <button class="action-btn delete" onclick="deleteItem('shop','${p.id}')">Delete</button>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+
+// ===== SHOP PRODUCT MODAL =====
+function openShopModal() {
+  document.getElementById('shopModalTitle').textContent = 'Add Product';
+  document.getElementById('shopId').value = '';
+  document.getElementById('shopName').value = '';
+  document.getElementById('shopPrice').value = '';
+  document.getElementById('shopOriginalPrice').value = '';
+  document.getElementById('shopCategory').value = '';
+  document.getElementById('shopImage').value = '';
+  document.getElementById('shopWaNum').value = '';
+  document.getElementById('shopStatus').value = 'instock';
+  document.getElementById('shopIsNew').checked = false;
+  document.getElementById('shopIsOffer').checked = false;
+  document.getElementById('shopModal').classList.add('active');
+}
+
+function editShopProduct(id) {
+  const p = cache.shop.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('shopModalTitle').textContent = 'Edit Product';
+  document.getElementById('shopId').value = p.id;
+  document.getElementById('shopName').value = p.name || '';
+  document.getElementById('shopPrice').value = p.price || '';
+  document.getElementById('shopOriginalPrice').value = p.original_price || '';
+  document.getElementById('shopCategory').value = p.category || '';
+  document.getElementById('shopImage').value = p.image || '';
+  document.getElementById('shopWaNum').value = p.wa_num || '';
+  document.getElementById('shopStatus').value = p.status || 'instock';
+  document.getElementById('shopIsNew').checked = !!p.is_new;
+  document.getElementById('shopIsOffer').checked = !!p.is_offer;
+  document.getElementById('shopModal').classList.add('active');
+}
+
+function closeShopModal() { document.getElementById('shopModal').classList.remove('active'); }
+document.getElementById('shopModal').addEventListener('click', e => { if(e.target===document.getElementById('shopModal')) closeShopModal(); });
+
+async function saveShopProduct() {
+  const id = document.getElementById('shopId').value;
+  const name = document.getElementById('shopName').value.trim();
+  const price = parseFloat(document.getElementById('shopPrice').value) || 0;
+  const originalPriceRaw = document.getElementById('shopOriginalPrice').value;
+  const original_price = originalPriceRaw ? parseFloat(originalPriceRaw) : null;
+  const category = document.getElementById('shopCategory').value.trim();
+  const image = document.getElementById('shopImage').value.trim();
+  const wa_num = document.getElementById('shopWaNum').value.trim();
+  const status = document.getElementById('shopStatus').value;
+  const is_new = document.getElementById('shopIsNew').checked;
+  const is_offer = document.getElementById('shopIsOffer').checked;
+
+  if (!name) { showToast('⚠️ Product name is required.'); return; }
+  if (!price) { showToast('⚠️ Price is required.'); return; }
+
+  const payload = { name, price, original_price, category, image, wa_num, status, is_new, is_offer };
+
+  try {
+    if (id) {
+      await sbFetch('shop_products', 'PATCH', payload, `?id=eq.${id}`);
+      const item = cache.shop.find(x => x.id === id);
+      if (item) Object.assign(item, payload);
+      showToast('✅ Product updated.');
+    } else {
+      const result = await sbFetch('shop_products', 'POST', payload);
+      if (result && result[0]) cache.shop.unshift(result[0]);
+      showToast('✅ Product added.');
+    }
+    closeShopModal();
+    renderPage(currentPage);
+    updateBadges();
+  } catch(e) {
+    if (e.message.toLowerCase().includes('does not exist') || e.message.toLowerCase().includes('relation')) {
+      showToast('⚠️ shop_products table not set up yet. See setup SQL.');
+    } else {
+      showToast('❌ Save failed: ' + e.message);
+    }
+  }
+}
+
+
+function renderLogins(data) {
+  document.getElementById('loginCountPill').textContent = data.length;
+  const tb = document.getElementById('loginsTable');
+  if (!data.length) { tb.innerHTML = `<tr><td colspan="6">${emptyState('users','No users yet.')}</td></tr>`; return; }
+  tb.innerHTML = data.map(l => `<tr>
+    <td class="id-cell">${esc(l.id)}</td>
+    <td class="name-cell">${esc(l.name)}</td>
+    <td class="date-cell">${esc(l.email)}</td>
+    <td class="date-cell">${esc(l.phone)}</td>
+    <td class="date-cell">${fmtDate(l.created_at)}</td>
+    <td>
+      <div class="actions-cell">
+        <button class="action-btn delete" onclick="deleteItem('logins','${l.id}')">Delete</button>
+      </div>
+    </td>
+  </tr>`).join('');
+}
+
+// ===== FILTER / SEARCH =====
+function filterTable(type) {
+  const searchIdMap = { bookings:'book', contacts:'contact', franchise:'franchise', products:'product', logins:'login', shop:'shop' };
+  const searchEl = document.getElementById(searchIdMap[type] + 'Search');
+  const filterEl = document.getElementById(type.replace('bookings','book') + 'Filter');
+  const q = searchEl ? searchEl.value.toLowerCase() : '';
+  const f = filterEl ? filterEl.value : '';
+  let data = [...(cache[type] || [])];
+  if (q) data = data.filter(d => JSON.stringify(d).toLowerCase().includes(q));
+  if (f) data = data.filter(d => d.status === f);
+  if (type === 'bookings')  renderBookings(data);
+  if (type === 'franchise') renderFranchise(data);
+  if (type === 'contacts')  renderContacts(data);
+  if (type === 'products')  renderProducts(data);
+  if (type === 'shop')      renderShop(data);
+  if (type === 'logins')    renderLogins(data);
+}
+
+// ===== DETAIL MODALS =====
+function viewBookingDetail(id) {
+  const b = cache.bookings.find(x => x.id === id);
+  if (!b) return;
+  document.getElementById('modalTitle').textContent = 'Booking Detail — ' + b.id;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="detail-row"><div class="detail-label">Booking ID</div><div class="detail-value id-cell">${esc(b.id)}</div></div>
+    <div class="detail-row"><div class="detail-label">Customer Name</div><div class="detail-value">${esc(b.name)}</div></div>
+    <div class="detail-row"><div class="detail-label">Phone</div><div class="detail-value">${esc(b.phone)}</div></div>
+    <div class="detail-row"><div class="detail-label">Services</div><div class="detail-value"><div class="detail-services">${(b.services||[]).map(s=>`<span class="service-tag">${esc(s)}</span>`).join('')}</div></div></div>
+    <div class="detail-row"><div class="detail-label">Date</div><div class="detail-value">${esc(b.date)||'—'}</div></div>
+    <div class="detail-row"><div class="detail-label">Time Slot</div><div class="detail-value">${esc(b.slot)||'—'}</div></div>
+    <div class="detail-row"><div class="detail-label">Address</div><div class="detail-value">${esc(b.address)||'—'}</div></div>
+    <div class="detail-row"><div class="detail-label">Subtotal</div><div class="detail-value">₹${b.subtotal||0}</div></div>
+    <div class="detail-row"><div class="detail-label">GST (18%)</div><div class="detail-value">₹${b.gst||0}</div></div>
+    <div class="detail-row"><div class="detail-label">Total Amount</div><div class="detail-value" style="font-size:16px;font-weight:800;color:var(--blue)">₹${b.total||0}</div></div>
+    <div class="detail-row"><div class="detail-label">Status</div><div class="detail-value">${statusBadge(b.status)}</div></div>
+    <div class="detail-row"><div class="detail-label">Submitted</div><div class="detail-value">${fmtDate(b.created_at)}</div></div>
+    <div style="margin-top:20px;display:flex;gap:10px;">
+      <select class="status-select" style="flex:1;padding:10px" onchange="updateStatus('bookings','${b.id}',this.value);closeDetailModal()">
+        <option value="">Update Status...</option>
+        ${['Pending','Confirmed','In Progress','Completed','Cancelled'].map(s=>`<option>${s}</option>`).join('')}
+      </select>
+      <button class="action-btn delete" style="padding:10px 16px" onclick="deleteItem('bookings','${b.id}');closeDetailModal()">Delete</button>
+    </div>
+  `;
+  document.getElementById('detailModal').classList.add('active');
+}
+
+function viewContactDetail(id) {
+  const c = cache.contacts.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('modalTitle').textContent = 'Message — ' + c.id;
+  document.getElementById('modalBody').innerHTML = `
+    <div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${esc(c.name)}</div></div>
+    <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${esc(c.email)}</div></div>
+    <div class="detail-row"><div class="detail-label">Message</div><div class="detail-value" style="white-space:pre-wrap;line-height:1.6">${esc(c.message)}</div></div>
+    <div class="detail-row"><div class="detail-label">Status</div><div class="detail-value">${statusBadge(c.status)}</div></div>
+    <div class="detail-row"><div class="detail-label">Received</div><div class="detail-value">${fmtDate(c.created_at)}</div></div>
+    <div style="margin-top:20px;display:flex;gap:10px;">
+      <button class="action-btn approve" style="flex:1;padding:10px" onclick="updateStatus('contacts','${c.id}','Replied');closeDetailModal()">Mark Replied</button>
+      <button class="action-btn delete" style="padding:10px 16px" onclick="deleteItem('contacts','${c.id}');closeDetailModal()">Delete</button>
+    </div>
+  `;
+  document.getElementById('detailModal').classList.add('active');
+  if (c.status === 'Unread') updateStatus('contacts', c.id, 'Read');
+}
+
+function closeDetailModal() { document.getElementById('detailModal').classList.remove('active'); }
+document.getElementById('detailModal').addEventListener('click', e => { if(e.target===document.getElementById('detailModal')) closeDetailModal(); });
+
+// ===== CSV EXPORT =====
+function exportCSV(type) {
+  const data = cache[type] || [];
+  if (!data.length) { showToast('No data to export.'); return; }
+  const keys = Object.keys(data[0]);
+  const csv = [keys.join(','), ...data.map(r => keys.map(k => '"' + String(r[k]||'').replace(/"/g,'""') + '"').join(','))].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'easyfix_' + type + '_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  showToast('📥 Exported ' + data.length + ' records.');
+}
+
+// ===== HELPERS =====
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmtDate(iso) {
+  if (!iso) return '—';
+  try { return new Date(iso).toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); } catch(e) { return iso; }
+}
+function statusBadge(s) {
+  const map = {
+    'Pending':'badge-pending','Confirmed':'badge-confirmed','In Progress':'badge-inprogress',
+    'Completed':'badge-completed','Cancelled':'badge-cancelled','New':'badge-new',
+    'Unread':'badge-unread','Read':'badge-confirmed','Replied':'badge-approved',
+    'Approved':'badge-approved','Rejected':'badge-cancelled','Pending Review':'badge-review',
+    'Qualified':'badge-approved','Contacted':'badge-confirmed',
+  };
+  return `<span class="badge ${map[s]||'badge-new'}">${esc(s||'—')}</span>`;
+}
+function emptyState(icon, msg) {
+  return `<div class="empty-state"><i class="fas fa-${icon}"></i><p>${msg}</p><p style="font-size:12px;margin-top:6px;color:#94a3b8">Submit data from the website to see it here.</p></div>`;
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ===== INIT =====
+updateBadges();
+refreshAll();
+// auto refresh every 15s
+setInterval(refreshAll, 15000);
+
+</script>
+</body>
+</html>
