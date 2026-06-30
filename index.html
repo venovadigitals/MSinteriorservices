@@ -35,11 +35,12 @@
 
   /* ===== NAVBAR ===== */
   nav {
-    position: sticky; top: 0; z-index: 1000;
+    position: fixed; top: 0; left: 0; right: 0; width: 100%; z-index: 1000;
     background: var(--white);
     border-bottom: 1px solid var(--gray-border);
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
+  body { padding-top: var(--nav-height, 142px); }
   .nav-top {
     background: var(--blue);
     padding: 6px 0;
@@ -728,15 +729,13 @@
 
   /* ===== CITY DROPDOWN ===== */
   .city-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
+    position: fixed;
     background: var(--white);
     border: 1px solid var(--gray-border);
     border-radius: 10px;
     box-shadow: var(--shadow);
     min-width: 180px;
-    z-index: 500;
+    z-index: 2500;
     display: none;
     overflow: hidden;
   }
@@ -870,7 +869,14 @@
     .hamburger { display: flex; }
     .nav-actions .btn-sell,
     .nav-actions .btn-login { display: none; }
-    .nav-main { padding: 0 16px; gap: 12px; }
+    .nav-main { padding: 0 12px; gap: 8px; height: 64px; flex-wrap: nowrap; max-width: 100%; overflow-x: hidden; justify-content: space-between; }
+    .city-wrap { flex: 1; display: flex; justify-content: center; min-width: 0; }
+    .logo-img { height: 38px; max-width: 150px; }
+    .city-selector { padding: 5px 8px; font-size: 11px; gap: 4px; }
+    .city-selector span#selectedCity { max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; }
+    .nav-actions { gap: 16px; }
+    .cart-btn { width: 34px; height: 34px; font-size: 14px; }
+    .hamburger { padding: 4px 2px; }
 
     /* NAV TOP BAR */
     .nav-top span { display: none; }
@@ -951,7 +957,7 @@
 <script
   async
   crossorigin="anonymous"
-  data-clerk-publishable-key="pk_live_Y2xlcmsubXNpbnRlcmlvcnNlcnZpY2VzLmNvbSQ"
+  data-clerk-publishable-key="pk_test_dG9sZXJhbnQtZXdlLTY4LmNsZXJrLmFjY291bnRzLmRldiQ"
   src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
   type="text/javascript"
 ></script>
@@ -2134,7 +2140,16 @@ function updateBranchManager(city) {
 }
 const citySelector = document.getElementById('citySelector');
 const cityDropdown = document.getElementById('cityDropdown');
-citySelector.addEventListener('click', e => { e.stopPropagation(); cityDropdown.classList.toggle('open'); });
+citySelector.addEventListener('click', e => {
+  e.stopPropagation();
+  const willOpen = !cityDropdown.classList.contains('open');
+  if (willOpen) {
+    const rect = citySelector.getBoundingClientRect();
+    cityDropdown.style.top = (rect.bottom + 8) + 'px';
+    cityDropdown.style.left = rect.left + 'px';
+  }
+  cityDropdown.classList.toggle('open');
+});
 document.addEventListener('click', () => cityDropdown.classList.remove('open'));
 cityDropdown.querySelectorAll('.city-item').forEach(item => {
   item.addEventListener('click', () => {
@@ -2178,6 +2193,17 @@ function closeMobileNav() {
   document.getElementById('mobileNavOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+// Keep body padding in sync with the fixed nav's real height
+function syncNavHeight() {
+  const navEl = document.querySelector('nav');
+  if (navEl) {
+    document.documentElement.style.setProperty('--nav-height', navEl.offsetHeight + 'px');
+  }
+}
+syncNavHeight();
+window.addEventListener('resize', () => { syncNavHeight(); cityDropdown.classList.remove('open'); });
+window.addEventListener('load', syncNavHeight);
 
 loadHomeServices();
 renderOrders();
